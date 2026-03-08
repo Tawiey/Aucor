@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-obsidian text-ivory antialiased selection:bg-accent selection:text-ivory;
+    overflow-x: hidden;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-sans tracking-tight;
+  }
+}
+
+@layer utilities {
+  .noise-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.05;
+  }
+  
+  .glass {
+    @apply bg-obsidian/80 backdrop-blur-xl border border-white/5;
+  }
+  
+  .reveal-text {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+}
