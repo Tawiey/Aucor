@@ -9,8 +9,8 @@ export default function FeaturedProperties() {
     return (
         <section className="py-24 px-6 md:px-16 theme-bg border-b theme-border relative z-20">
             <div className="max-w-7xl mx-auto">
-                <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
-                    <div>
+                <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end mb-12 gap-6">
+                    <div className="text-left">
                         <div className="flex items-center gap-3 mb-4">
                             <div className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
                             <h3 className="font-sans font-bold tracking-widest uppercase text-sm theme-text-muted">
@@ -23,7 +23,7 @@ export default function FeaturedProperties() {
                     </div>
                     <Link
                         to="/properties"
-                        className="group flex items-center gap-2 text-sm font-medium theme-text-muted hover:text-accent transition-colors uppercase tracking-widest"
+                        className="group inline-flex items-center gap-2 self-start lg:self-auto text-sm font-medium theme-text-muted hover:text-accent transition-colors uppercase tracking-widest"
                     >
                         View Full Catalogue
                         <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />

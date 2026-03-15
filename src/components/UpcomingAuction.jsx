@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { createPortal } from 'react-dom';
 import { differenceInDays, differenceInHours, differenceInMinutes, differenceInSeconds, format } from 'date-fns';
 import { X, Calendar, MapPin, ArrowRight, Clock3 } from 'lucide-react';
 
@@ -40,7 +41,7 @@ function formatNumber(num) {
 
 function AnimatedValue({ value, className }) {
     return (
-        <span className={className}>
+        <span className={`flex w-full justify-center ${className}`}>
             <AnimatePresence mode="popLayout" initial={false}>
                 <motion.span
                     key={value}
@@ -48,7 +49,7 @@ function AnimatedValue({ value, className }) {
                     animate={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
                     exit={{ y: -10, opacity: 0, filter: 'blur(4px)' }}
                     transition={{ duration: 0.24, ease: 'easeOut' }}
-                    className="inline-block"
+                    className="block text-center"
                 >
                     {formatNumber(value)}
                 </motion.span>
@@ -62,16 +63,16 @@ function CountdownRow({ timeLeft, compact = false, rail = false }) {
         ? 'grid grid-cols-4 gap-2'
         : 'grid grid-cols-4 gap-2 md:gap-3';
     const cellClass = rail
-        ? 'rounded-[1.15rem] border border-white/8 bg-white/[0.025] px-2.5 py-2 text-center md:px-3'
-        : 'rounded-[1.4rem] border border-white/10 bg-white/[0.04] px-3 py-3 text-center md:px-4';
+        ? 'flex flex-col items-center justify-center rounded-[1.15rem] border border-white/8 bg-white/[0.025] px-2.5 py-2 text-center md:px-3'
+        : 'flex flex-col items-center justify-center rounded-[1.4rem] border border-white/10 bg-white/[0.04] px-3 py-3 text-center md:px-4';
     const valueClass = rail
-        ? 'font-mono text-xl font-semibold tracking-tight text-white md:text-2xl'
+        ? 'block w-full text-center font-mono text-xl font-semibold leading-none tracking-tight tabular-nums text-white md:text-2xl'
         : compact
-            ? 'font-mono text-2xl font-semibold tracking-tight text-white md:text-[2rem]'
-            : 'font-mono text-[2.2rem] font-semibold tracking-tight text-white md:text-[2.6rem]';
+            ? 'block w-full text-center font-mono text-2xl font-semibold leading-none tracking-tight tabular-nums text-white md:text-[2rem]'
+            : 'block w-full text-center font-mono text-[2.2rem] font-semibold leading-none tracking-tight tabular-nums text-white md:text-[2.6rem]';
     const labelClass = rail
-        ? 'mt-1 text-[9px] uppercase tracking-[0.24em] text-white/34'
-        : 'mt-1 text-[10px] uppercase tracking-[0.28em] text-white/42 md:text-[11px]';
+        ? 'mt-2 block w-full text-center text-[9px] uppercase leading-none tracking-[0.24em] text-white/34'
+        : 'mt-2 block w-full text-center text-[10px] uppercase leading-none tracking-[0.28em] text-white/42 md:text-[11px]';
 
     return (
         <div className={containerClass}>
@@ -97,7 +98,11 @@ function CountdownRow({ timeLeft, compact = false, rail = false }) {
 }
 
 function AuctionModal({ isExpanded, onClose, timeLeft }) {
-    return (
+    if (typeof document === 'undefined') {
+        return null;
+    }
+
+    return createPortal((
         <AnimatePresence>
             {isExpanded && (
                 <motion.div
@@ -205,7 +210,7 @@ function AuctionModal({ isExpanded, onClose, timeLeft }) {
                 </motion.div>
             )}
         </AnimatePresence>
-    );
+    ), document.body);
 }
 
 export default function UpcomingAuction() {
@@ -228,6 +233,14 @@ export default function UpcomingAuction() {
 
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
+
+    useEffect(() => {
+        document.body.style.overflow = isExpanded ? 'hidden' : '';
+
+        return () => {
+            document.body.style.overflow = '';
+        };
+    }, [isExpanded]);
 
     return (
         <>
