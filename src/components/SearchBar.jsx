@@ -1,90 +1,128 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Search, MapPin, Building2, AlignLeft } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { Search, MapPin, Building2, AlignLeft, SlidersHorizontal } from 'lucide-react';
+import { AnimatePresence, motion } from 'framer-motion';
 
 export default function SearchBar() {
     const navigate = useNavigate();
     const [searchQuery, setSearchQuery] = useState('');
+    const [showFilters, setShowFilters] = useState(false);
+    const [filters, setFilters] = useState({
+        city: '',
+        suburb: '',
+        type: ''
+    });
 
     const handleSearch = (e) => {
         e.preventDefault();
+        const params = new URLSearchParams();
+
         if (searchQuery.trim()) {
-            navigate(`/properties?q=${encodeURIComponent(searchQuery)}`);
-        } else {
-            navigate('/properties');
+            params.set('q', searchQuery.trim());
         }
+
+        Object.entries(filters).forEach(([key, value]) => {
+            if (value) {
+                params.set(key, value);
+            }
+        });
+
+        const queryString = params.toString();
+        navigate(queryString ? `/properties?${queryString}` : '/properties');
     };
+
+    const handleFilterChange = (key) => (event) => {
+        setFilters((current) => ({
+            ...current,
+            [key]: event.target.value
+        }));
+    };
+
+    const selectClass = "h-11 w-full rounded-full border border-white/10 bg-white/[0.03] pl-10 pr-4 text-sm text-ivory/88 outline-none transition-all appearance-none hover:border-white/20 focus:border-accent/40 focus:bg-white/[0.05]";
 
     return (
         <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
-            className="w-full max-w-5xl mx-auto -mt-24 relative z-30 px-6"
+            transition={{ duration: 0.7, delay: 0.45, ease: "easeOut" }}
+            className="relative z-30 w-full"
         >
-            <div className="bg-obsidian/60 backdrop-blur-2xl border border-white/10 rounded-2xl p-6 md:p-8 shadow-[0_20px_40px_rgba(0,0,0,0.5)]">
-
-                <div className="flex items-center gap-3 mb-6">
-                    <div className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
-                    <h3 className="font-sans font-bold tracking-widest uppercase text-sm text-ivory/80">
-                        Property Intelligence Search
-                    </h3>
-                </div>
-
-                <form onSubmit={handleSearch} className="flex flex-col gap-4">
-                    {/* Top Row: Dropdowns */}
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <div className="relative group/input">
-                            <MapPin size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-ivory/40 group-focus-within/input:text-accent transition-colors" />
-                            <select className="w-full bg-white/5 border border-white/10 rounded-xl h-12 pl-12 pr-4 text-sm text-ivory font-mono appearance-none outline-none focus:border-accent/50 focus:bg-white/10 transition-all cursor-pointer">
-                                <option value="" className="bg-obsidian">Filter by City</option>
-                                <option value="johannesburg" className="bg-obsidian">Johannesburg</option>
-                                <option value="capetown" className="bg-obsidian">Cape Town</option>
-                                <option value="durban" className="bg-obsidian">Durban</option>
-                            </select>
-                        </div>
-
-                        <div className="relative group/input">
-                            <AlignLeft size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-ivory/40 group-focus-within/input:text-accent transition-colors" />
-                            <select className="w-full bg-white/5 border border-white/10 rounded-xl h-12 pl-12 pr-4 text-sm text-ivory font-mono appearance-none outline-none focus:border-accent/50 focus:bg-white/10 transition-all cursor-pointer">
-                                <option value="" className="bg-obsidian">Filter by Suburb</option>
-                                <option value="sandton" className="bg-obsidian">Sandton</option>
-                                <option value="blackheath" className="bg-obsidian">Blackheath</option>
-                                <option value="chloorkop" className="bg-obsidian">Chloorkop</option>
-                            </select>
-                        </div>
-
-                        <div className="relative group/input">
-                            <Building2 size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-ivory/40 group-focus-within/input:text-accent transition-colors" />
-                            <select className="w-full bg-white/5 border border-white/10 rounded-xl h-12 pl-12 pr-4 text-sm text-ivory font-mono appearance-none outline-none focus:border-accent/50 focus:bg-white/10 transition-all cursor-pointer">
-                                <option value="" className="bg-obsidian">Property Type</option>
-                                <option value="commercial" className="bg-obsidian">Commercial</option>
-                                <option value="industrial" className="bg-obsidian">Industrial</option>
-                                <option value="residential" className="bg-obsidian">Residential</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    {/* Bottom Row: Free Text & Submit */}
-                    <div className="flex flex-col md:flex-row gap-4">
-                        <div className="relative flex-1 group/input">
-                            <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-ivory/40 group-focus-within/input:text-accent transition-colors" />
+            <div className="rounded-[1.75rem] border border-white/12 bg-[linear-gradient(145deg,rgba(13,13,18,0.82),rgba(13,13,18,0.6))] p-3 shadow-[0_24px_60px_rgba(0,0,0,0.24)] backdrop-blur-xl md:p-4">
+                <form onSubmit={handleSearch}>
+                    <div className="flex flex-col gap-3 md:flex-row md:items-center">
+                        <div className="relative flex-1">
+                            <Search size={18} className="absolute left-5 top-1/2 -translate-y-1/2 text-ivory/36" />
                             <input
                                 type="text"
-                                placeholder="Search by keyword, address, or web ref..."
+                                placeholder="Search by suburb, asset, street, or reference..."
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
-                                className="w-full bg-white/5 border border-white/10 rounded-xl h-14 pl-12 pr-4 text-sm text-ivory font-sans outline-none focus:border-accent/50 focus:bg-white/10 transition-all placeholder:text-ivory/30"
+                                className="h-14 w-full rounded-full border border-white/10 bg-white/[0.04] pl-14 pr-4 text-[15px] text-ivory outline-none transition-all duration-300 placeholder:text-ivory/30 hover:border-white/18 focus:border-white/28 focus:bg-white/[0.06] md:h-16"
                             />
                         </div>
-                        <button
-                            type="submit"
-                            className="bg-accent text-white h-14 px-10 rounded-xl font-bold tracking-widest text-sm uppercase hover:bg-accent/90 transition-colors shadow-[0_0_20px_rgba(230,46,45,0.2)] hover:shadow-[0_0_30px_rgba(230,46,45,0.4)]"
-                        >
-                            Search
-                        </button>
+
+                        <div className="flex items-center gap-2 self-end md:self-auto">
+                            <button
+                                type="button"
+                                onClick={() => setShowFilters((current) => !current)}
+                                aria-expanded={showFilters}
+                                className="inline-flex h-11 items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 text-xs font-medium uppercase tracking-[0.2em] text-ivory/70 transition-all duration-300 hover:border-white/20 hover:bg-white/[0.07]"
+                            >
+                                <SlidersHorizontal size={14} />
+                                Filters
+                            </button>
+                            <button
+                                type="submit"
+                                className="inline-flex h-11 items-center justify-center rounded-full border border-white/14 bg-white px-5 text-xs font-semibold uppercase tracking-[0.22em] text-obsidian transition-all duration-300 hover:bg-ivory"
+                            >
+                                Search
+                            </button>
+                        </div>
                     </div>
+
+                    <AnimatePresence initial={false}>
+                        {showFilters && (
+                            <motion.div
+                                initial={{ opacity: 0, height: 0, y: -8 }}
+                                animate={{ opacity: 1, height: 'auto', y: 0 }}
+                                exit={{ opacity: 0, height: 0, y: -8 }}
+                                transition={{ duration: 0.28, ease: 'easeOut' }}
+                                className="overflow-hidden"
+                            >
+                                <div className="mt-3 grid gap-2 border-t border-white/8 pt-3 md:grid-cols-3">
+                                    <div className="relative">
+                                        <MapPin size={15} className="absolute left-4 top-1/2 -translate-y-1/2 text-ivory/38" />
+                                        <select value={filters.city} onChange={handleFilterChange('city')} className={selectClass}>
+                                            <option value="">City</option>
+                                            <option value="johannesburg">Johannesburg</option>
+                                            <option value="capetown">Cape Town</option>
+                                            <option value="durban">Durban</option>
+                                        </select>
+                                    </div>
+
+                                    <div className="relative">
+                                        <AlignLeft size={15} className="absolute left-4 top-1/2 -translate-y-1/2 text-ivory/38" />
+                                        <select value={filters.suburb} onChange={handleFilterChange('suburb')} className={selectClass}>
+                                            <option value="">Suburb</option>
+                                            <option value="sandton">Sandton</option>
+                                            <option value="blackheath">Blackheath</option>
+                                            <option value="chloorkop">Chloorkop</option>
+                                        </select>
+                                    </div>
+
+                                    <div className="relative">
+                                        <Building2 size={15} className="absolute left-4 top-1/2 -translate-y-1/2 text-ivory/38" />
+                                        <select value={filters.type} onChange={handleFilterChange('type')} className={selectClass}>
+                                            <option value="">Asset type</option>
+                                            <option value="commercial">Commercial</option>
+                                            <option value="industrial">Industrial</option>
+                                            <option value="residential">Residential</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
                 </form>
             </div>
         </motion.div>

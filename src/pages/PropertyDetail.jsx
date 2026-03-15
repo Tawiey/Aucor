@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { MapPin, Calendar, CheckCircle2, ChevronLeft, ArrowRight } from 'lucide-react';
-import { dummyProperties } from '../data/properties';
+import { dummyProperties, PROPERTY_IMAGE_FALLBACK } from '../data/properties';
 
 export default function PropertyDetail() {
     const { id } = useParams();
@@ -24,7 +24,7 @@ export default function PropertyDetail() {
     }
 
     return (
-        <div className="pt-24 pb-24 min-h-screen text-ivory">
+        <div className="pt-24 pb-24 min-h-screen theme-bg theme-text">
 
             {/* Top Navigation */}
             <div className="px-6 md:px-16 mb-8 mt-4 max-w-7xl mx-auto flex items-center justify-between">
@@ -47,7 +47,15 @@ export default function PropertyDetail() {
                         animate={{ opacity: 1, y: 0 }}
                         className="w-full aspect-video rounded-[2rem] overflow-hidden border border-white/10 relative group"
                     >
-                        <img src={property.image} alt={property.title} className="w-full h-full object-cover" />
+                        <img
+                            src={property.image}
+                            alt={property.title}
+                            onError={(event) => {
+                                event.currentTarget.onerror = null;
+                                event.currentTarget.src = PROPERTY_IMAGE_FALLBACK;
+                            }}
+                            className="w-full h-full object-cover"
+                        />
                         <div className="absolute inset-0 bg-gradient-to-t from-obsidian/80 via-transparent to-transparent" />
                         <div className="absolute bottom-6 left-6 right-6">
                             <span className="font-mono text-[10px] uppercase tracking-widest bg-accent px-2 py-1 rounded text-white font-bold mb-3 inline-block">
@@ -86,7 +94,7 @@ export default function PropertyDetail() {
                     {/* Abstract / Description */}
                     <div>
                         <h3 className="font-sans font-bold text-2xl mb-4">Property Brief</h3>
-                        <p className="font-light text-ivory/70 leading-relaxed text-lg">
+                        <p className="font-light theme-text-muted leading-relaxed text-lg">
                             {property.description}
                         </p>
                     </div>
@@ -111,11 +119,11 @@ export default function PropertyDetail() {
                     <div className="sticky top-32 flex flex-col gap-6">
 
                         {/* Enquiry Form */}
-                        <div className="bg-obsidian/80 backdrop-blur-xl border border-white/10 rounded-[2rem] p-8 shadow-2xl relative overflow-hidden">
+                        <div className="bg-obsidian/80 backdrop-blur-xl border theme-border rounded-[2rem] p-8 shadow-2xl relative overflow-hidden">
                             <div className="absolute top-0 right-0 w-32 h-32 bg-accent/10 blur-[40px] rounded-full pointer-events-none" />
 
                             <h3 className="font-sans font-bold text-2xl mb-2">Make an Enquiry</h3>
-                            <p className="text-sm text-ivory/50 mb-8">Register your interest or request the full information pack for this asset.</p>
+                            <p className="text-sm theme-text-muted mb-8">Register your interest or request the full information pack for this asset.</p>
 
                             <form className="flex flex-col gap-4">
                                 <div className="relative group">

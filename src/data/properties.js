@@ -1,3 +1,5 @@
+export const PROPERTY_IMAGE_FALLBACK = "/property-images/fallback-property.jpg";
+
 export const dummyProperties = [
     {
         id: "P5846",
@@ -10,7 +12,7 @@ export const dummyProperties = [
         size: "4 200m²",
         auctionDate: "17 Mar 2026",
         status: "Upcoming",
-        image: "https://images.unsplash.com/photo-1586528116311-ad8ed7e66364?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+        image: "/property-images/wrs-tm-pl-TCkIri6lxEo-unsplash.jpg",
         description: "Exceptional standalone industrial facility featuring deep yard space, excellent height to eaves, and multiple roller shutter doors. Currently occupied by a blue-chip logistics tenant with a 5-year triple net lease.",
         features: [
             "Large yard for superlink articulation",
@@ -37,7 +39,7 @@ export const dummyProperties = [
         size: "12 500m² GL",
         auctionDate: "17 Mar 2026",
         status: "Upcoming",
-        image: "https://images.unsplash.com/photo-1519494140681-8b17d830a3f9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+        image: "/property-images/syed-ayan-malik-DI3MlpRdYeE-unsplash.jpg",
         description: "Anchored neighborhood shopping center situated in the high-growth node of Lephalale. Featuring national tenants including SuperSpar, Tops, and major retail banks. High foot traffic and zero vacancies.",
         features: [
             "Anchored by SuperSpar (10yr lease)",
@@ -64,7 +66,7 @@ export const dummyProperties = [
         size: "21 000m²",
         auctionDate: "17 Mar 2026",
         status: "Upcoming",
-        image: "https://images.unsplash.com/photo-1553434320-e9f5dd8f60da?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+        image: "/property-images/dj-steiner-DLpgvZWOnuU-unsplash.jpg",
         description: "Heavy manufacturing focused industrial park component. Massive power allocation suited for extrusion, molding, or heavy engineering. Includes overhead cranes and extensive administrative blocks.",
         features: [
             "1MVA Power supply",

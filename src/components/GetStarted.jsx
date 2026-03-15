@@ -27,18 +27,18 @@ export default function GetStarted() {
     }, []);
 
     return (
-        <section ref={containerRef} className="py-32 px-6 md:px-16 bg-obsidian text-ivory flex justify-center" id="contact">
+        <section ref={containerRef} className="py-32 px-6 md:px-16 theme-bg theme-text flex justify-center" id="contact">
             <div className="w-full max-w-6xl relative group">
                 <div className="absolute inset-0 bg-accent/20 blur-[100px] rounded-[3rem] opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
 
-                <div className="relative bg-slate/10 border border-white/10 rounded-[3rem] p-12 md:p-24 overflow-hidden flex flex-col items-center text-center">
+                <div className="relative theme-surface-2 border theme-border rounded-[3rem] p-12 md:p-24 overflow-hidden flex flex-col items-center text-center">
                     <div className="absolute top-0 right-0 w-64 h-64 bg-accent/10 blur-[80px] rounded-full pointer-events-none" />
 
                     <h2 className="gs-reveal font-sans font-bold text-4xl md:text-5xl lg:text-7xl tracking-tight mb-6 max-w-4xl leading-[1.1]">
                         Ready to secure your next <span className="font-drama italic text-accent font-normal">investment?</span>
                     </h2>
 
-                    <p className="gs-reveal text-ivory/60 max-w-2xl text-lg font-light mb-12">
+                    <p className="gs-reveal theme-text-muted max-w-2xl text-lg font-light mb-12">
                         Register for upcoming property auctions and gain exclusive access to our curated marketplace of high-yield opportunities.
                     </p>
 

@@ -2,17 +2,105 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ─────────────────────────────────────────────────
+   CSS CUSTOM PROPERTIES — Theme Tokens
+   ───────────────────────────────────────────────── */
+
+[data-theme='dark'],
+:root {
+  --bg-primary: #0D0D12;
+  --bg-surface: #131318;
+  --bg-surface-2: rgba(255, 255, 255, 0.05);
+  --text-primary: #FAF8F5;
+  --text-muted: rgba(250, 248, 245, 0.6);
+  --text-subtle: rgba(250, 248, 245, 0.4);
+  --border-color: rgba(255, 255, 255, 0.1);
+  --border-hover: rgba(255, 255, 255, 0.2);
+  --glass-bg: rgba(13, 13, 18, 0.8);
+  --glass-border: rgba(255, 255, 255, 0.05);
+  --shadow-accent: rgba(230, 46, 45, 0.2);
+  --input-bg: rgba(255, 255, 255, 0.05);
+  --input-focus: rgba(255, 255, 255, 0.1);
+  --badge-bg: rgba(13, 13, 18, 0.8);
+  --card-bg: rgba(255, 255, 255, 0.05);
+  --hero-glass-bg: rgba(13, 13, 18, 0.34);
+  --hero-glass-border: rgba(255, 255, 255, 0.14);
+  --hero-glass-shadow: 0 20px 45px rgba(5, 7, 12, 0.2);
+}
+
+[data-theme='light'] {
+  --bg-primary: #F5F3EE;
+  --bg-surface: #EDEAE3;
+  --bg-surface-2: rgba(0, 0, 0, 0.04);
+  --text-primary: #141210;
+  --text-muted: rgba(20, 18, 16, 0.65);
+  --text-subtle: rgba(20, 18, 16, 0.4);
+  --border-color: rgba(0, 0, 0, 0.1);
+  --border-hover: rgba(0, 0, 0, 0.2);
+  --glass-bg: rgba(245, 243, 238, 0.85);
+  --glass-border: rgba(0, 0, 0, 0.08);
+  --shadow-accent: rgba(230, 46, 45, 0.15);
+  --input-bg: rgba(0, 0, 0, 0.04);
+  --input-focus: rgba(0, 0, 0, 0.08);
+  --badge-bg: rgba(245, 243, 238, 0.9);
+  --card-bg: rgba(0, 0, 0, 0.04);
+  --hero-glass-bg: rgba(13, 13, 18, 0.28);
+  --hero-glass-border: rgba(255, 255, 255, 0.18);
+  --hero-glass-shadow: 0 20px 45px rgba(5, 7, 12, 0.18);
+}
+
+/* ─────────────────────────────────────────────────
+   BASE LAYER
+   ───────────────────────────────────────────────── */
 @layer base {
-  body {
-    @apply bg-obsidian text-ivory antialiased selection:bg-accent selection:text-ivory;
-    overflow-x: hidden;
+  html {
+    scroll-behavior: smooth;
   }
-  
-  h1, h2, h3, h4, h5, h6 {
+
+  body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    @apply antialiased selection:bg-accent selection:text-white;
+    overflow-x: hidden;
+    transition: background-color 0.4s ease, color 0.4s ease;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply font-sans tracking-tight;
+  }
+
+  @keyframes dash {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  @keyframes scanY {
+    0% {
+      top: 18%;
+      opacity: 0;
+    }
+
+    12%,
+    88% {
+      opacity: 1;
+    }
+
+    100% {
+      top: 78%;
+      opacity: 0;
+    }
   }
 }
 
+/* ─────────────────────────────────────────────────
+   UTILITY CLASSES
+   ───────────────────────────────────────────────── */
 @layer utilities {
   .noise-overlay {
     position: fixed;
@@ -22,13 +110,82 @@
     height: 100vh;
     pointer-events: none;
     z-index: 9999;
-    opacity: 0.05;
+    opacity: 0.04;
   }
-  
+
+  /* Theme-aware background utilities */
+  .theme-bg {
+    background-color: var(--bg-primary);
+  }
+
+  .theme-surface {
+    background-color: var(--bg-surface);
+  }
+
+  .theme-surface-2 {
+    background-color: var(--bg-surface-2);
+  }
+
+  .theme-text {
+    color: var(--text-primary);
+  }
+
+  .theme-text-muted {
+    color: var(--text-muted);
+  }
+
+  .theme-text-subtle {
+    color: var(--text-subtle);
+  }
+
+  .theme-border {
+    border-color: var(--border-color);
+  }
+
+  .theme-border-hover:hover {
+    border-color: var(--border-hover);
+  }
+
+  .theme-input {
+    background-color: var(--input-bg);
+    border-color: var(--border-color);
+  }
+
+  .theme-input:focus {
+    background-color: var(--input-focus);
+  }
+
+  .theme-card {
+    background-color: var(--card-bg);
+    border-color: var(--border-color);
+  }
+
   .glass {
-    @apply bg-obsidian/80 backdrop-blur-xl border border-white/5;
+    background-color: var(--glass-bg);
+    border-color: var(--glass-border);
+    @apply backdrop-blur-xl border;
   }
-  
+
+  .hero-glass {
+    background-color: var(--hero-glass-bg);
+    border-color: var(--hero-glass-border);
+    box-shadow: var(--hero-glass-shadow);
+    @apply border backdrop-blur-md;
+  }
+
+  .faq-grid-pattern::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+      linear-gradient(45deg, transparent 47%, rgba(255, 255, 255, 0.035) 48%, rgba(255, 255, 255, 0.035) 52%, transparent 53%);
+    background-size: 180px 180px, 180px 180px, 180px 180px;
+    opacity: 0.3;
+    pointer-events: none;
+  }
+
   .reveal-text {
     opacity: 0;
     transform: translateY(20px);
