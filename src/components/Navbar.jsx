@@ -5,6 +5,9 @@ import clsx from 'clsx';
 import { ArrowRight, Sun, Moon, Menu, X } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 
+const CONTACT_PHONE_DISPLAY = '011 033 6600';
+const CONTACT_PHONE_HREF = 'tel:+27110336600';
+
 export default function Navbar() {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -64,7 +67,7 @@ export default function Navbar() {
         <>
             <nav
                 className={clsx(
-                    'fixed top-6 left-1/2 -translate-x-1/2 z-50 rounded-[3rem] px-4 py-3 md:px-6 md:py-3.5 flex items-center justify-between w-[92%] max-w-6xl border transition-all duration-500',
+                    'fixed top-6 left-1/2 -translate-x-1/2 z-50 rounded-[3rem] px-4 py-3 md:px-6 md:py-3.5 flex items-center justify-between w-[92%] md:w-[94%] max-w-6xl md:max-w-7xl border transition-all duration-500',
                     isFloatingHome ? 'hero-glass shadow-lg shadow-black/10' : 'glass shadow-xl'
                 )}
             >
@@ -110,6 +113,18 @@ export default function Navbar() {
                 </div>
 
                 <div className="flex items-center gap-3">
+                    <a
+                        href={CONTACT_PHONE_HREF}
+                        className={clsx(
+                            'hidden md:inline-flex items-center rounded-full px-3 py-2.5 text-sm font-medium transition-all duration-300',
+                            isFloatingHome
+                                ? 'text-white/84 hover:text-white drop-shadow-[0_1px_12px_rgba(0,0,0,0.28)]'
+                                : 'theme-text-muted hover:theme-text'
+                        )}
+                    >
+                        {CONTACT_PHONE_DISPLAY}
+                    </a>
+
                     <button className="hidden md:block relative overflow-hidden group bg-accent text-white px-6 py-3 rounded-full font-medium text-sm transition-transform duration-300 hover:scale-[1.03] active:scale-[0.98]">
                         <span className="relative z-10 flex items-center gap-2 tracking-wide">
                             Register
@@ -208,6 +223,17 @@ export default function Navbar() {
                                     <ArrowRight size={16} className="text-accent/80" />
                                 </NavLink>
                             </div>
+
+                            <a
+                                href={CONTACT_PHONE_HREF}
+                                className="relative z-10 mt-4 flex items-center justify-between rounded-[1.25rem] border border-white/8 bg-white/[0.03] px-4 py-4 text-white/88 transition-all duration-300 hover:border-accent/30 hover:bg-white/[0.05] hover:text-white"
+                            >
+                                <div>
+                                    <p className="text-[10px] uppercase tracking-[0.24em] text-white/42">Call Aucor</p>
+                                    <p className="mt-2 text-sm font-medium text-white">{CONTACT_PHONE_DISPLAY}</p>
+                                </div>
+                                <ArrowRight size={16} className="text-accent/80" />
+                            </a>
 
                             <div className="relative z-10 mt-auto rounded-[1.5rem] border border-white/10 bg-white/[0.03] p-4">
                                 <div className="flex items-center justify-between gap-4">

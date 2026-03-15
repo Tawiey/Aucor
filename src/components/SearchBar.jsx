@@ -38,7 +38,7 @@ export default function SearchBar() {
         }));
     };
 
-    const selectClass = "h-11 w-full rounded-full border border-white/10 bg-white/[0.03] pl-10 pr-4 text-sm text-ivory/88 outline-none transition-all appearance-none hover:border-white/20 focus:border-accent/40 focus:bg-white/[0.05]";
+    const selectClass = "h-11 w-full rounded-full border border-white/10 bg-white/[0.03] pl-10 pr-4 text-sm text-ivory/88 outline-none transition-all duration-300 appearance-none hover:border-white/20 hover:bg-white/[0.045] focus:border-white/28 focus:bg-white/[0.06]";
 
     return (
         <motion.div
@@ -47,7 +47,7 @@ export default function SearchBar() {
             transition={{ duration: 0.7, delay: 0.45, ease: "easeOut" }}
             className="relative z-30 w-full"
         >
-            <div className="rounded-[1.75rem] border border-white/12 bg-[linear-gradient(145deg,rgba(13,13,18,0.82),rgba(13,13,18,0.6))] p-3 shadow-[0_24px_60px_rgba(0,0,0,0.24)] backdrop-blur-xl md:p-4">
+            <div className="rounded-[1.75rem] border border-white/10 bg-[linear-gradient(145deg,rgba(13,13,18,0.82),rgba(13,13,18,0.6))] p-3 shadow-[0_24px_60px_rgba(0,0,0,0.24)] backdrop-blur-xl md:p-4">
                 <form onSubmit={handleSearch}>
                     <div className="flex flex-col gap-3 md:flex-row md:items-center">
                         <div className="relative flex-1">
@@ -57,7 +57,7 @@ export default function SearchBar() {
                                 placeholder="Search by suburb, asset, street, or reference..."
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
-                                className="h-14 w-full rounded-full border border-white/10 bg-white/[0.04] pl-14 pr-4 text-[15px] text-ivory outline-none transition-all duration-300 placeholder:text-ivory/30 hover:border-white/18 focus:border-white/28 focus:bg-white/[0.06] md:h-16"
+                                className="h-14 w-full rounded-full border border-white/10 bg-white/[0.04] pl-14 pr-4 text-[15px] text-ivory outline-none transition-all duration-300 placeholder:text-ivory/30 hover:border-white/20 hover:bg-white/[0.05] focus:border-white/28 focus:bg-white/[0.07] md:h-16"
                             />
                         </div>
 
@@ -66,14 +66,14 @@ export default function SearchBar() {
                                 type="button"
                                 onClick={() => setShowFilters((current) => !current)}
                                 aria-expanded={showFilters}
-                                className="inline-flex h-11 items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 text-xs font-medium uppercase tracking-[0.2em] text-ivory/70 transition-all duration-300 hover:border-white/20 hover:bg-white/[0.07]"
+                                className="inline-flex h-11 items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 text-xs font-medium uppercase tracking-[0.2em] text-ivory/70 transition-all duration-300 hover:border-white/20 hover:bg-white/[0.08]"
                             >
                                 <SlidersHorizontal size={14} />
                                 Filters
                             </button>
                             <button
                                 type="submit"
-                                className="inline-flex h-11 items-center justify-center rounded-full border border-white/14 bg-white px-5 text-xs font-semibold uppercase tracking-[0.22em] text-obsidian transition-all duration-300 hover:bg-ivory"
+                                className="inline-flex h-11 items-center justify-center rounded-full border border-white/14 bg-white px-5 text-xs font-semibold uppercase tracking-[0.22em] text-obsidian shadow-[0_8px_20px_rgba(255,255,255,0.08)] transition-all duration-300 hover:-translate-y-[1px] hover:border-white/24 hover:bg-ivory hover:shadow-[0_14px_30px_rgba(255,255,255,0.16)] active:translate-y-0"
                             >
                                 Search
                             </button>

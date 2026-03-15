@@ -55,7 +55,7 @@ export default function Hero() {
                     <SearchBar />
                 </div>
 
-                <div className="mt-14 md:mt-20">
+                <div className="mt-16 md:mt-24">
                     <UpcomingAuction />
                 </div>
             </div>

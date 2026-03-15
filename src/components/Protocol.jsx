@@ -123,16 +123,20 @@ export default function Protocol() {
             cards.forEach((card, i) => {
                 if (i === cards.length - 1) return;
 
+                const innerCard = card.querySelector('.protocol-card-inner');
+
                 ScrollTrigger.create({
                     trigger: card,
                     start: 'top top',
                     endTrigger: cards[i + 1],
                     end: 'top top',
                     pin: true,
-                    pinSpacing: false
+                    pinSpacing: false,
+                    anticipatePin: 1,
+                    invalidateOnRefresh: true
                 });
 
-                gsap.to(card, {
+                gsap.to(innerCard, {
                     scale: 0.9,
                     opacity: 0.3,
                     filter: 'blur(10px)',
@@ -141,7 +145,8 @@ export default function Protocol() {
                         trigger: cards[i + 1],
                         start: 'top bottom',
                         end: 'top top',
-                        scrub: true
+                        scrub: true,
+                        invalidateOnRefresh: true
                     }
                 });
             });
@@ -174,9 +179,10 @@ export default function Protocol() {
             {steps.map((step, index) => (
                 <div
                     key={step.num}
-                    className="protocol-card sticky top-0 flex h-[100dvh] w-full items-center justify-center bg-obsidian px-6"
+                    className="protocol-card relative flex h-[100dvh] w-full items-center justify-center bg-obsidian px-6"
+                    style={{ zIndex: steps.length - index }}
                 >
-                    <div className="mx-auto grid w-full max-w-6xl items-center gap-12 md:grid-cols-2 md:gap-20">
+                    <div className="protocol-card-inner mx-auto grid w-full max-w-6xl items-center gap-12 md:grid-cols-2 md:gap-20">
                         <div className="flex flex-col gap-6">
                             <span className="font-mono text-xl tracking-widest text-accent border border-accent/20 px-3 py-1 rounded w-max">
                                 {step.num}

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { createPortal } from 'react-dom';
 import { differenceInDays, differenceInHours, differenceInMinutes, differenceInSeconds, format } from 'date-fns';
-import { X, Calendar, MapPin, ArrowRight, Clock3 } from 'lucide-react';
+import { X, Calendar, MapPin, ArrowRight } from 'lucide-react';
 
 const TARGET_DATE = new Date('2026-03-17T11:00:00');
 const AUCTION_TITLE = 'Prime Commercial Showcase';
@@ -60,18 +60,18 @@ function AnimatedValue({ value, className }) {
 
 function CountdownRow({ timeLeft, compact = false, rail = false }) {
     const containerClass = rail
-        ? 'grid grid-cols-4 gap-2'
+        ? 'grid grid-cols-4 gap-3 md:gap-4'
         : 'grid grid-cols-4 gap-2 md:gap-3';
     const cellClass = rail
-        ? 'flex flex-col items-center justify-center rounded-[1.15rem] border border-white/8 bg-white/[0.025] px-2.5 py-2 text-center md:px-3'
+        ? 'flex min-w-[3.25rem] flex-col items-center justify-center text-center'
         : 'flex flex-col items-center justify-center rounded-[1.4rem] border border-white/10 bg-white/[0.04] px-3 py-3 text-center md:px-4';
     const valueClass = rail
-        ? 'block w-full text-center font-mono text-xl font-semibold leading-none tracking-tight tabular-nums text-white md:text-2xl'
+        ? 'block w-full text-center font-mono text-[1.65rem] font-semibold leading-none tracking-tight tabular-nums text-white md:text-[1.9rem]'
         : compact
             ? 'block w-full text-center font-mono text-2xl font-semibold leading-none tracking-tight tabular-nums text-white md:text-[2rem]'
             : 'block w-full text-center font-mono text-[2.2rem] font-semibold leading-none tracking-tight tabular-nums text-white md:text-[2.6rem]';
     const labelClass = rail
-        ? 'mt-2 block w-full text-center text-[9px] uppercase leading-none tracking-[0.24em] text-white/34'
+        ? 'mt-1.5 block w-full text-center text-[9px] uppercase leading-none tracking-[0.22em] text-white/30'
         : 'mt-2 block w-full text-center text-[10px] uppercase leading-none tracking-[0.28em] text-white/42 md:text-[11px]';
 
     return (
@@ -253,49 +253,40 @@ export default function UpcomingAuction() {
                 <motion.button
                     type="button"
                     onClick={() => setIsExpanded(true)}
-                    whileHover={{ y: -1 }}
                     transition={{ duration: 0.18, ease: 'easeOut' }}
-                    className="group relative w-full overflow-hidden rounded-[1.85rem] border border-white/10 bg-[linear-gradient(135deg,rgba(12,12,18,0.76),rgba(18,12,16,0.72))] px-4 py-4 text-left shadow-[0_18px_44px_rgba(0,0,0,0.18)] backdrop-blur-lg md:px-5 md:py-4"
+                    className="group relative w-full overflow-hidden rounded-[1.6rem] border border-white/10 bg-[linear-gradient(135deg,rgba(11,11,16,0.68),rgba(16,12,16,0.58))] px-4 py-4 text-left shadow-[0_12px_30px_rgba(0,0,0,0.12)] backdrop-blur-md md:px-5 md:py-4"
                 >
-                    <div className="absolute inset-0 bg-[linear-gradient(120deg,transparent,rgba(255,255,255,0.035),transparent)] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                    <div className="absolute inset-y-0 left-0 w-[28%] bg-[linear-gradient(90deg,rgba(255,255,255,0.02),transparent)]" />
 
-                    <div className="relative z-10 flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
-                        <div className="min-w-0 max-w-[28rem]">
+                    <div className="relative z-10 flex flex-col gap-5 xl:grid xl:grid-cols-[minmax(0,1fr)_auto] xl:items-center xl:gap-8">
+                        <div className="min-w-0 max-w-[32rem]">
                             <div className="flex flex-wrap items-center gap-2.5">
-                                <span className="inline-flex items-center gap-2 rounded-full border border-accent/16 bg-accent/8 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.24em] text-accent/92">
+                                <span className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/[0.03] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.24em] text-white/76">
                                     <span className="h-2 w-2 rounded-full bg-accent animate-pulse" />
                                     Next Auction
                                 </span>
                             </div>
 
                             <div className="mt-3">
-                                <h3 className="text-lg font-semibold tracking-[0.01em] text-white md:text-xl">
+                                <h3 className="text-lg font-semibold tracking-[0.01em] text-white md:text-[1.15rem]">
                                     {AUCTION_TITLE}
                                 </h3>
-                                <div className="mt-2 flex flex-col gap-1.5 text-sm text-ivory/56 md:flex-row md:flex-wrap md:items-center md:gap-4">
+                                <div className="mt-2 flex flex-nowrap items-center gap-4 overflow-x-auto whitespace-nowrap text-sm text-ivory/52 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
                                     <span className="inline-flex items-center gap-2">
-                                        <Calendar size={14} className="text-accent/72" />
+                                        <Calendar size={14} className="text-accent/64" />
                                         {AUCTION_DATE_LONG} • {AUCTION_TIME_LONG}
                                     </span>
                                     <span className="inline-flex items-center gap-2">
-                                        <MapPin size={14} className="text-accent/72" />
-                                        Johannesburg
+                                        <MapPin size={14} className="text-accent/64" />
+                                        {AUCTION_LOCATION}
                                     </span>
                                 </div>
                             </div>
                         </div>
 
-                        <div className="w-full max-w-[20rem] xl:mx-8">
-                            <CountdownRow timeLeft={timeLeft} rail />
-                        </div>
-
-                        <div className="flex items-center justify-between gap-4 border-t border-white/8 pt-3 xl:min-w-[12rem] xl:justify-end xl:border-l xl:border-t-0 xl:pl-6 xl:pt-0">
-                            <div className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-white/42 xl:hidden">
-                                <Clock3 size={14} className="text-accent/72" />
-                                Live countdown
-                            </div>
-                            <span className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.22em] text-white/62 transition-colors group-hover:text-white/82">
-                                Auction details
+                        <div className="flex items-center justify-between gap-4 border-t border-white/8 pt-3 xl:min-w-[11rem] xl:justify-end xl:border-l xl:border-t-0 xl:pl-5 xl:pt-0">
+                            <span className="inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.2em] text-white/56 transition-colors group-hover:text-accent/90">
+                                View details
                                 <ArrowRight size={14} className="transition-transform duration-300 group-hover:translate-x-0.5" />
                             </span>
                         </div>
