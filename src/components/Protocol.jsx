@@ -180,7 +180,7 @@ export default function Protocol() {
                 <div
                     key={step.num}
                     className="protocol-card relative flex h-[100dvh] w-full items-center justify-center bg-obsidian px-6"
-                    style={{ zIndex: steps.length - index }}
+                    style={{ zIndex: index + 1 }}
                 >
                     <div className="protocol-card-inner mx-auto grid w-full max-w-6xl items-center gap-12 md:grid-cols-2 md:gap-20">
                         <div className="flex flex-col gap-6">
