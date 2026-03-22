@@ -40,7 +40,7 @@ export default function Hero() {
             </div>
 
             {/* Content */}
-            <div className="relative z-10 mx-auto flex min-h-[calc(100dvh-13rem)] w-full max-w-6xl flex-col justify-center">
+            <div className="relative z-10 mx-auto flex min-h-[calc(100dvh-13rem)] w-[92%] max-w-6xl flex-col justify-center md:w-[94%] md:max-w-7xl">
                 <div className="max-w-5xl">
                     <h1 className="hero-reveal font-drama text-[3rem] leading-[0.96] text-ivory md:text-[4.6rem] lg:whitespace-nowrap xl:text-[5.6rem]">
                         Find auction properties, fast.

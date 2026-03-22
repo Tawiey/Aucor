@@ -4,7 +4,7 @@ import { createPortal } from 'react-dom';
 import { differenceInDays, differenceInHours, differenceInMinutes, differenceInSeconds, format } from 'date-fns';
 import { X, Calendar, MapPin, ArrowRight } from 'lucide-react';
 
-const TARGET_DATE = new Date('2026-03-17T11:00:00');
+const TARGET_DATE = new Date('2026-04-14T11:00:00+02:00');
 const AUCTION_TITLE = 'Prime Commercial Showcase';
 const AUCTION_LOCATION = 'The Houghton Golf Club, Johannesburg';
 const AUCTION_DIRECTIONS = '#';
@@ -41,7 +41,7 @@ function formatNumber(num) {
 
 function AnimatedValue({ value, className }) {
     return (
-        <span className={`flex w-full justify-center ${className}`}>
+        <span className={`flex h-full w-full items-center justify-center ${className}`}>
             <AnimatePresence mode="popLayout" initial={false}>
                 <motion.span
                     key={value}
@@ -49,7 +49,7 @@ function AnimatedValue({ value, className }) {
                     animate={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
                     exit={{ y: -10, opacity: 0, filter: 'blur(4px)' }}
                     transition={{ duration: 0.24, ease: 'easeOut' }}
-                    className="block text-center"
+                    className="block w-full text-center leading-none"
                 >
                     {formatNumber(value)}
                 </motion.span>
@@ -63,15 +63,15 @@ function CountdownRow({ timeLeft, compact = false, rail = false }) {
         ? 'grid grid-cols-4 gap-3 md:gap-4'
         : 'grid grid-cols-4 gap-2 md:gap-3';
     const cellClass = rail
-        ? 'flex min-w-[3.25rem] flex-col items-center justify-center text-center'
+        ? 'flex min-w-[2.9rem] flex-col items-center justify-center text-center md:min-w-[3.25rem]'
         : 'flex flex-col items-center justify-center rounded-[1.4rem] border border-white/10 bg-white/[0.04] px-3 py-3 text-center md:px-4';
     const valueClass = rail
-        ? 'block w-full text-center font-mono text-[1.65rem] font-semibold leading-none tracking-tight tabular-nums text-white md:text-[1.9rem]'
+        ? 'block w-full text-center font-mono text-[1.3rem] font-semibold leading-none tracking-tight tabular-nums text-white/88 md:text-[1.55rem]'
         : compact
-            ? 'block w-full text-center font-mono text-2xl font-semibold leading-none tracking-tight tabular-nums text-white md:text-[2rem]'
+            ? 'mx-auto block w-full text-center font-mono text-2xl font-semibold leading-none tracking-tight tabular-nums text-white md:text-[2rem]'
             : 'block w-full text-center font-mono text-[2.2rem] font-semibold leading-none tracking-tight tabular-nums text-white md:text-[2.6rem]';
     const labelClass = rail
-        ? 'mt-1.5 block w-full text-center text-[9px] uppercase leading-none tracking-[0.22em] text-white/30'
+        ? 'mt-1.5 block w-full text-center text-[8px] uppercase leading-none tracking-[0.22em] text-white/34'
         : 'mt-2 block w-full text-center text-[10px] uppercase leading-none tracking-[0.28em] text-white/42 md:text-[11px]';
 
     return (
@@ -122,7 +122,7 @@ function AuctionModal({ isExpanded, onClose, timeLeft }) {
                         animate={{ scale: 1, y: 0, opacity: 1 }}
                         exit={{ scale: 0.93, y: 32, opacity: 0 }}
                         transition={{ type: 'spring', stiffness: 280, damping: 26, delay: 0.08 }}
-                        className="relative flex w-full max-w-5xl flex-col gap-10 overflow-hidden rounded-[2.5rem] border border-accent/20 bg-[linear-gradient(150deg,rgba(13,13,18,0.98),rgba(24,14,18,0.95))] p-8 shadow-[0_0_100px_rgba(230,46,45,0.14)] md:flex-row md:p-12"
+                        className="relative flex w-full max-w-5xl flex-col gap-10 overflow-hidden rounded-[2.5rem] border border-accent/20 bg-[linear-gradient(150deg,rgba(13,13,18,0.98),rgba(24,14,18,0.95))] p-8 pt-20 shadow-[0_0_100px_rgba(230,46,45,0.14)] md:min-h-[42rem] md:flex-row md:items-center md:p-12 md:pt-16"
                     >
                         <motion.div
                             animate={{ x: [0, 12, 0], y: [0, -10, 0] }}
@@ -132,7 +132,7 @@ function AuctionModal({ isExpanded, onClose, timeLeft }) {
 
                         <button
                             onClick={onClose}
-                            className="absolute right-5 top-5 z-20 rounded-full bg-white/5 p-3 text-ivory transition-colors hover:bg-white/10 hover:text-accent"
+                            className="absolute right-5 top-5 z-20 rounded-full bg-white/5 p-3 text-ivory transition-colors hover:bg-white/10 hover:text-accent md:right-6 md:top-6"
                         >
                             <X size={22} />
                         </button>
@@ -188,18 +188,18 @@ function AuctionModal({ isExpanded, onClose, timeLeft }) {
                             </div>
                         </div>
 
-                        <div className="relative flex w-full flex-col justify-center overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.04] p-7 md:w-[22rem]">
+                        <div className="relative flex w-full flex-col overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.04] px-5 py-4 md:w-[21rem] md:self-center md:px-6 md:py-4">
                             <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,rgba(230,46,45,0.12)_0%,transparent_62%)]" />
-                            <span className="relative z-10 mb-8 text-xs uppercase tracking-[0.25em] text-ivory/50">T-Minus</span>
+                            <span className="relative z-10 mb-3 text-xs uppercase tracking-[0.25em] text-ivory/50">T-Minus</span>
 
-                            <div className="relative z-10 flex flex-col gap-5">
+                            <div className="relative z-10 flex flex-col gap-3">
                                 {countdownUnits.map((unit) => (
-                                    <div key={unit.key} className="flex items-end justify-between border-b border-white/10 pb-4">
+                                    <div key={unit.key} className="flex min-h-[5.25rem] items-center justify-between border-b border-white/10 pb-3">
                                         <AnimatedValue
                                             value={timeLeft[unit.key]}
-                                            className="font-mono text-5xl font-bold tracking-tighter text-white"
+                                            className="h-[4rem] min-w-[4.5rem] font-mono text-[4rem] font-bold leading-none tracking-tight tabular-nums text-white"
                                         />
-                                        <span className="mb-2 text-xs uppercase tracking-[0.22em] text-ivory/40">
+                                        <span className="text-right text-xs uppercase tracking-[0.22em] text-ivory/40">
                                             {unit.label}
                                         </span>
                                     </div>
@@ -258,7 +258,7 @@ export default function UpcomingAuction() {
                 >
                     <div className="absolute inset-y-0 left-0 w-[28%] bg-[linear-gradient(90deg,rgba(255,255,255,0.02),transparent)]" />
 
-                    <div className="relative z-10 flex flex-col gap-5 xl:grid xl:grid-cols-[minmax(0,1fr)_auto] xl:items-center xl:gap-8">
+                    <div className="relative z-10 flex flex-col gap-5 xl:grid xl:grid-cols-[minmax(0,1fr)_auto] xl:gap-8">
                         <div className="min-w-0 max-w-[32rem]">
                             <div className="flex flex-wrap items-center gap-2.5">
                                 <span className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/[0.03] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.24em] text-white/76">
@@ -271,20 +271,28 @@ export default function UpcomingAuction() {
                                 <h3 className="text-lg font-semibold tracking-[0.01em] text-white md:text-[1.15rem]">
                                     {AUCTION_TITLE}
                                 </h3>
-                                <div className="mt-2 flex flex-nowrap items-center gap-4 overflow-x-auto whitespace-nowrap text-sm text-ivory/52 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-                                    <span className="inline-flex items-center gap-2">
+                                <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-ivory/52">
+                                    <span className="inline-flex items-center gap-2 whitespace-nowrap">
                                         <Calendar size={14} className="text-accent/64" />
                                         {AUCTION_DATE_LONG} • {AUCTION_TIME_LONG}
                                     </span>
-                                    <span className="inline-flex items-center gap-2">
+                                    <span className="inline-flex min-w-0 items-center gap-2 sm:whitespace-nowrap">
                                         <MapPin size={14} className="text-accent/64" />
-                                        {AUCTION_LOCATION}
+                                        <span className="min-w-0">
+                                            {AUCTION_LOCATION}
+                                        </span>
                                     </span>
                                 </div>
                             </div>
                         </div>
 
-                        <div className="flex items-center justify-between gap-4 border-t border-white/8 pt-3 xl:min-w-[11rem] xl:justify-end xl:border-l xl:border-t-0 xl:pl-5 xl:pt-0">
+                        <div className="flex flex-col gap-4 border-t border-white/8 pt-3 xl:min-w-[17.5rem] xl:justify-center xl:border-l xl:border-white/4 xl:border-t-0 xl:pl-6 xl:pt-0">
+                            <div>
+                                <CountdownRow timeLeft={timeLeft} compact rail />
+                            </div>
+                        </div>
+
+                        <div className="flex items-center justify-between pt-5 xl:col-span-2 xl:pt-4">
                             <span className="inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.2em] text-white/56 transition-colors group-hover:text-accent/90">
                                 View details
                                 <ArrowRight size={14} className="transition-transform duration-300 group-hover:translate-x-0.5" />
