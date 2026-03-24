@@ -1,33 +1,5 @@
 import { Link } from 'react-router-dom';
-
-const footerGroups = [
-    {
-        title: 'Properties',
-        links: [
-            { label: 'Current properties', to: '/properties', type: 'internal' },
-            { label: 'Past properties', href: '#', type: 'external' }
-        ]
-    },
-    {
-        title: 'Documents',
-        links: [
-            { label: 'FAQs', href: '/#faqs', type: 'external' },
-            { label: 'Privacy Policy', href: '#', type: 'external' },
-            { label: 'Terms and conditions', href: '#', type: 'external' },
-            { label: 'FICA requirements', href: '#', type: 'external' },
-            { label: 'Trust Bank Account Details', href: '#', type: 'external' }
-        ]
-    },
-    {
-        title: 'Social Media',
-        links: [
-            { label: 'Facebook', href: '#', type: 'external' },
-            { label: 'LinkedIn', href: '#', type: 'external' },
-            { label: 'Instagram', href: '#', type: 'external' },
-            { label: 'YouTube', href: '#', type: 'external' }
-        ]
-    }
-];
+import { footerNavGroups } from '../data/navigation';
 
 export default function Footer() {
     return (
@@ -43,11 +15,11 @@ export default function Footer() {
                         </p>
                     </div>
 
-                    {footerGroups.map((group) => (
+                    {footerNavGroups.map((group) => (
                         <div key={group.title} className="flex flex-col gap-4">
                             <h4 className="font-sans font-semibold text-sm tracking-widest uppercase theme-text-muted">{group.title}</h4>
                             {group.links.map((link) => (
-                                link.type === 'internal' ? (
+                                link.type === 'route' ? (
                                     <Link
                                         key={link.label}
                                         to={link.to}
@@ -55,6 +27,14 @@ export default function Footer() {
                                     >
                                         {link.label}
                                     </Link>
+                                ) : link.type === 'hash' ? (
+                                    <a
+                                        key={link.label}
+                                        href={`/${link.to}`}
+                                        className="theme-text-muted hover:text-accent transition-colors text-sm w-max"
+                                    >
+                                        {link.label}
+                                    </a>
                                 ) : (
                                     <a
                                         key={link.label}

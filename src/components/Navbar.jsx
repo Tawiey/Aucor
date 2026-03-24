@@ -1,9 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import clsx from 'clsx';
-import { ArrowRight, Sun, Moon, Menu, Phone, X } from 'lucide-react';
+import { ArrowRight, ChevronDown, Sun, Moon, Menu, Phone, X } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
+import { primaryNavItems, moreNavItems } from '../data/navigation';
 
 const CONTACT_PHONE_DISPLAY = '011 033 6600';
 const CONTACT_PHONE_HREF = 'tel:+27110336600';
@@ -11,8 +12,11 @@ const CONTACT_PHONE_HREF = 'tel:+27110336600';
 export default function Navbar() {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isMoreOpen, setIsMoreOpen] = useState(false);
+    const [isMobileMoreOpen, setIsMobileMoreOpen] = useState(false);
     const location = useLocation();
     const { theme, toggleTheme } = useTheme();
+    const moreMenuRef = useRef(null);
     const isHome = location.pathname === '/';
     const isFloatingHome = isHome && !isScrolled;
 
@@ -26,6 +30,8 @@ export default function Navbar() {
 
     useEffect(() => {
         setIsMenuOpen(false);
+        setIsMoreOpen(false);
+        setIsMobileMoreOpen(false);
     }, [location.pathname, location.hash]);
 
     useEffect(() => {
@@ -35,9 +41,20 @@ export default function Navbar() {
         };
     }, [isMenuOpen]);
 
+    useEffect(() => {
+        const handlePointerDown = (event) => {
+            if (moreMenuRef.current && !moreMenuRef.current.contains(event.target)) {
+                setIsMoreOpen(false);
+            }
+        };
+
+        document.addEventListener('pointerdown', handlePointerDown);
+        return () => document.removeEventListener('pointerdown', handlePointerDown);
+    }, []);
+
     // Helper to determine if we should hash link (on home page) or standard link
-    const NavLink = ({ to, children, className, onClick }) => {
-        const isHash = to.startsWith('#');
+    const NavLink = ({ to, type = 'route', children, className, onClick }) => {
+        const isHash = type === 'hash';
         const linkClass = clsx(
             'inline-flex items-center justify-center leading-none text-xs font-medium transition-colors duration-200 uppercase tracking-widest md:h-12',
             isFloatingHome
@@ -105,11 +122,58 @@ export default function Navbar() {
                     />
                 </Link>
 
-                <div className="hidden md:flex items-center gap-8 lg:gap-10">
-                    <NavLink to="/properties">Properties</NavLink>
-                    <NavLink to="#features">Features</NavLink>
-                    <NavLink to="#process">Process</NavLink>
-                    <NavLink to="#contact">Contact</NavLink>
+                <div className="hidden md:flex items-center gap-7 lg:gap-8">
+                    {primaryNavItems.map((item) => (
+                        <NavLink key={item.label} to={item.to} type={item.type}>
+                            {item.label}
+                        </NavLink>
+                    ))}
+
+                    <div ref={moreMenuRef} className="relative">
+                        <button
+                            type="button"
+                            onClick={() => setIsMoreOpen((current) => !current)}
+                            aria-expanded={isMoreOpen}
+                            className={clsx(
+                                'inline-flex h-12 items-center justify-center gap-1.5 text-xs font-medium uppercase tracking-widest transition-colors duration-200',
+                                isFloatingHome
+                                    ? 'text-white/82 hover:text-accent drop-shadow-[0_1px_12px_rgba(0,0,0,0.32)]'
+                                    : 'theme-text-muted hover:text-accent'
+                            )}
+                        >
+                            More
+                            <ChevronDown
+                                size={15}
+                                className={clsx('transition-transform duration-200', isMoreOpen && 'rotate-180')}
+                            />
+                        </button>
+
+                        <AnimatePresence>
+                            {isMoreOpen && (
+                                <motion.div
+                                    initial={{ opacity: 0, y: 10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, y: 10 }}
+                                    transition={{ duration: 0.18, ease: 'easeOut' }}
+                                    className="absolute right-0 top-[calc(100%+0.75rem)] min-w-[14rem] overflow-hidden rounded-[1.5rem] border border-white/10 bg-[linear-gradient(150deg,rgba(11,11,16,0.98),rgba(20,12,16,0.94))] p-2 shadow-[0_24px_70px_rgba(0,0,0,0.35)]"
+                                >
+                                    <div className="flex flex-col gap-1">
+                                        {moreNavItems.map((item) => (
+                                            <NavLink
+                                                key={item.label}
+                                                to={item.to}
+                                                type={item.type}
+                                                onClick={() => setIsMoreOpen(false)}
+                                                className="justify-between rounded-[1.1rem] px-4 py-3 text-left text-[11px] text-white/84 hover:bg-white/[0.05]"
+                                            >
+                                                <span>{item.label}</span>
+                                            </NavLink>
+                                        ))}
+                                    </div>
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
+                    </div>
                 </div>
 
                 <div className="flex items-center gap-2 md:gap-3">
@@ -191,43 +255,74 @@ export default function Navbar() {
                             </div>
 
                             <div className="relative z-10 flex flex-col gap-2 border-t border-white/8 pt-5">
-                                <NavLink
-                                    to="/properties"
-                                    onClick={() => setIsMenuOpen(false)}
-                                    className="flex items-center justify-between rounded-[1.25rem] border border-white/8 bg-white/[0.03] px-4 py-3.5 text-sm text-white/88 hover:border-accent/30 hover:bg-white/[0.05] hover:text-white"
+                                {primaryNavItems.map((item) => (
+                                    <NavLink
+                                        key={item.label}
+                                        to={item.to}
+                                        type={item.type}
+                                        onClick={() => setIsMenuOpen(false)}
+                                        className="flex items-center justify-between rounded-[1.1rem] px-4 py-3.5 text-sm text-white/86 hover:bg-white/[0.04] hover:text-white active:bg-white/[0.07]"
+                                    >
+                                        <span>{item.label}</span>
+                                        <ArrowRight size={16} className="text-accent/80" />
+                                    </NavLink>
+                                ))}
+
+                                <div
+                                    className={clsx(
+                                        'overflow-hidden rounded-[1.35rem] transition-all duration-200',
+                                        isMobileMoreOpen && 'border border-white/6 bg-white/[0.02]'
+                                    )}
                                 >
-                                    <span>Properties</span>
-                                    <ArrowRight size={16} className="text-accent/80" />
-                                </NavLink>
-                                <NavLink
-                                    to="#features"
-                                    onClick={() => setIsMenuOpen(false)}
-                                    className="flex items-center justify-between rounded-[1.25rem] border border-white/8 bg-white/[0.03] px-4 py-3.5 text-sm text-white/88 hover:border-accent/30 hover:bg-white/[0.05] hover:text-white"
-                                >
-                                    <span>Features</span>
-                                    <ArrowRight size={16} className="text-accent/80" />
-                                </NavLink>
-                                <NavLink
-                                    to="#process"
-                                    onClick={() => setIsMenuOpen(false)}
-                                    className="flex items-center justify-between rounded-[1.25rem] border border-white/8 bg-white/[0.03] px-4 py-3.5 text-sm text-white/88 hover:border-accent/30 hover:bg-white/[0.05] hover:text-white"
-                                >
-                                    <span>Process</span>
-                                    <ArrowRight size={16} className="text-accent/80" />
-                                </NavLink>
-                                <NavLink
-                                    to="#contact"
-                                    onClick={() => setIsMenuOpen(false)}
-                                    className="flex items-center justify-between rounded-[1.25rem] border border-white/8 bg-white/[0.03] px-4 py-3.5 text-sm text-white/88 hover:border-accent/30 hover:bg-white/[0.05] hover:text-white"
-                                >
-                                    <span>Contact</span>
-                                    <ArrowRight size={16} className="text-accent/80" />
-                                </NavLink>
+                                    <button
+                                        type="button"
+                                        onClick={() => setIsMobileMoreOpen((current) => !current)}
+                                        className={clsx(
+                                            'flex w-full items-center justify-between rounded-[1.1rem] px-4 py-3.5 text-left text-sm uppercase tracking-widest text-white/86 transition-colors duration-300 hover:bg-white/[0.04] hover:text-white active:bg-white/[0.07]',
+                                            isMobileMoreOpen && 'rounded-none'
+                                        )}
+                                    >
+                                        <span>More</span>
+                                        <ChevronDown
+                                            size={16}
+                                            className={clsx('text-accent/80 transition-transform duration-200', isMobileMoreOpen && 'rotate-180')}
+                                        />
+                                    </button>
+
+                                    <AnimatePresence initial={false}>
+                                        {isMobileMoreOpen && (
+                                            <motion.div
+                                                initial={{ height: 0, opacity: 0 }}
+                                                animate={{ height: 'auto', opacity: 1 }}
+                                                exit={{ height: 0, opacity: 0 }}
+                                                transition={{ duration: 0.22, ease: 'easeOut' }}
+                                                className="overflow-hidden border-t border-white/8"
+                                            >
+                                                <div className="flex flex-col gap-1 p-2">
+                                                    {moreNavItems.map((item) => (
+                                                        <NavLink
+                                                            key={item.label}
+                                                            to={item.to}
+                                                            type={item.type}
+                                                            onClick={() => {
+                                                                setIsMobileMoreOpen(false);
+                                                                setIsMenuOpen(false);
+                                                            }}
+                                                            className="justify-between rounded-[1rem] px-3 py-3 text-[11px] text-white/84 hover:bg-white/[0.05] active:bg-white/[0.08]"
+                                                        >
+                                                            <span>{item.label}</span>
+                                                        </NavLink>
+                                                    ))}
+                                                </div>
+                                            </motion.div>
+                                        )}
+                                    </AnimatePresence>
+                                </div>
                             </div>
 
                             <a
                                 href={CONTACT_PHONE_HREF}
-                                className="relative z-10 mt-4 flex items-center justify-between rounded-[1.25rem] border border-white/8 bg-white/[0.03] px-4 py-3.5 text-white/88 transition-all duration-300 hover:border-accent/30 hover:bg-white/[0.05] hover:text-white"
+                                className="relative z-10 mt-4 flex items-center justify-between rounded-[1.1rem] px-4 py-3.5 text-white/88 transition-all duration-300 hover:bg-white/[0.04] hover:text-white active:bg-white/[0.07]"
                             >
                                 <div>
                                     <p className="text-[10px] uppercase tracking-[0.24em] text-white/42">Call Aucor</p>

@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { createPortal } from 'react-dom';
 import { differenceInDays, differenceInHours, differenceInMinutes, differenceInSeconds, format } from 'date-fns';
 import { X, Calendar, MapPin, ArrowRight } from 'lucide-react';
+import clsx from 'clsx';
 
 const TARGET_DATE = new Date('2026-04-14T11:00:00+02:00');
 const AUCTION_TITLE = 'Prime Commercial Showcase';
@@ -39,17 +40,21 @@ function formatNumber(num) {
     return num.toString().padStart(2, '0');
 }
 
-function AnimatedValue({ value, className }) {
+function ValueSlot({ value, slotClassName, valueClassName }) {
     return (
-        <span className={`flex h-full w-full items-center justify-center ${className}`}>
-            <AnimatePresence mode="popLayout" initial={false}>
+        <span className={clsx('relative inline-flex items-center justify-center overflow-hidden tabular-nums', slotClassName)}>
+            <span className={clsx('invisible font-mono leading-none tracking-tight', valueClassName)}>88</span>
+            <AnimatePresence mode="wait" initial={false}>
                 <motion.span
                     key={value}
-                    initial={{ y: 10, opacity: 0, filter: 'blur(4px)' }}
-                    animate={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
-                    exit={{ y: -10, opacity: 0, filter: 'blur(4px)' }}
-                    transition={{ duration: 0.24, ease: 'easeOut' }}
-                    className="block w-full text-center leading-none"
+                    initial={{ y: 4, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    exit={{ y: -4, opacity: 0 }}
+                    transition={{ duration: 0.16, ease: 'easeOut' }}
+                    className={clsx(
+                        'absolute inset-0 flex items-center justify-center text-center font-mono leading-none tracking-tight',
+                        valueClassName
+                    )}
                 >
                     {formatNumber(value)}
                 </motion.span>
@@ -58,41 +63,97 @@ function AnimatedValue({ value, className }) {
     );
 }
 
-function CountdownRow({ timeLeft, compact = false, rail = false }) {
-    const containerClass = rail
-        ? 'grid grid-cols-4 gap-3 md:gap-4'
-        : 'grid grid-cols-4 gap-2 md:gap-3';
-    const cellClass = rail
-        ? 'flex min-w-[2.9rem] flex-col items-center justify-center text-center md:min-w-[3.25rem]'
-        : 'flex flex-col items-center justify-center rounded-[1.4rem] border border-white/10 bg-white/[0.04] px-3 py-3 text-center md:px-4';
-    const valueClass = rail
-        ? 'block w-full text-center font-mono text-[1.3rem] font-semibold leading-none tracking-tight tabular-nums text-white/88 md:text-[1.55rem]'
-        : compact
-            ? 'mx-auto block w-full text-center font-mono text-2xl font-semibold leading-none tracking-tight tabular-nums text-white md:text-[2rem]'
-            : 'block w-full text-center font-mono text-[2.2rem] font-semibold leading-none tracking-tight tabular-nums text-white md:text-[2.6rem]';
-    const labelClass = rail
-        ? 'mt-1.5 block w-full text-center text-[8px] uppercase leading-none tracking-[0.22em] text-white/34'
-        : 'mt-2 block w-full text-center text-[10px] uppercase leading-none tracking-[0.28em] text-white/42 md:text-[11px]';
-
+function CompactCountdown({ timeLeft }) {
     return (
-        <div className={containerClass}>
+        <div className="grid grid-cols-4 gap-2.5 md:gap-3">
             {countdownUnits.map((unit) => (
-                <motion.div
+                <div
                     key={unit.key}
-                    layout
-                    whileHover={rail ? undefined : { y: -2 }}
-                    transition={{ duration: 0.2, ease: 'easeOut' }}
-                    className={cellClass}
+                    className="flex min-h-[6.35rem] flex-col items-center justify-center rounded-[1.4rem] border border-white/10 bg-white/[0.04] px-3 py-2 text-center md:min-h-[6.9rem] md:px-4 md:py-2.5"
                 >
-                    <AnimatedValue
+                    <ValueSlot
                         value={timeLeft[unit.key]}
-                        className={valueClass}
+                        slotClassName="h-[2.5rem] min-w-[3.2rem] md:h-[2.9rem] md:min-w-[3.5rem]"
+                        valueClassName="text-2xl font-semibold text-white md:text-[2rem]"
                     />
-                    <div className={labelClass}>
-                        {compact ? unit.shortLabel : unit.label}
-                    </div>
-                </motion.div>
+                    <span className="mt-2 block w-full text-center text-[10px] uppercase leading-none tracking-[0.28em] text-white/42 md:text-[11px]">
+                        {unit.shortLabel}
+                    </span>
+                </div>
             ))}
+        </div>
+    );
+}
+
+function RailCountdown({ timeLeft }) {
+    return (
+        <div className="grid grid-cols-4 gap-3 md:gap-4">
+            {countdownUnits.map((unit) => (
+                <div
+                    key={unit.key}
+                    className="flex min-w-[3.15rem] flex-col items-center justify-center text-center md:min-w-[3.45rem]"
+                >
+                    <ValueSlot
+                        value={timeLeft[unit.key]}
+                        slotClassName="h-[2.2rem] min-w-[2.7rem] md:h-[2.5rem] md:min-w-[3rem]"
+                        valueClassName="text-[1.35rem] font-semibold text-white/88 md:text-[1.6rem]"
+                    />
+                    <span className="mt-2 block w-full text-center text-[8px] uppercase leading-none tracking-[0.22em] text-white/34">
+                        {unit.shortLabel}
+                    </span>
+                </div>
+            ))}
+        </div>
+    );
+}
+
+function ModalDesktopCountdown({ timeLeft }) {
+    return (
+        <div className="relative hidden w-full flex-col overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.04] px-6 py-5 md:flex md:w-[21rem] md:self-center">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,rgba(230,46,45,0.12)_0%,transparent_62%)]" />
+            <span className="relative z-10 mb-4 text-xs uppercase tracking-[0.25em] text-ivory/50">T-Minus</span>
+
+            <div className="relative z-10 flex flex-col">
+                {countdownUnits.map((unit) => (
+                    <div key={unit.key} className="flex min-h-[5.1rem] items-center justify-between border-b border-white/10 py-2">
+                        <ValueSlot
+                            value={timeLeft[unit.key]}
+                            slotClassName="h-[4rem] min-w-[4.5rem]"
+                            valueClassName="text-[4rem] font-bold text-white"
+                        />
+                        <span className="min-w-[6.4rem] text-right text-xs uppercase tracking-[0.22em] text-ivory/40">
+                            {unit.label}
+                        </span>
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+}
+
+function ModalMobileCountdown({ timeLeft }) {
+    return (
+        <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.04] px-5 py-5 md:hidden">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,rgba(230,46,45,0.12)_0%,transparent_62%)]" />
+            <span className="relative z-10 mb-4 block text-xs uppercase tracking-[0.25em] text-ivory/50">T-Minus</span>
+
+            <div className="relative z-10 grid grid-cols-2 gap-3">
+                {countdownUnits.map((unit) => (
+                    <div
+                        key={unit.key}
+                        className="flex min-h-[6.8rem] flex-col items-center justify-center rounded-[1.35rem] border border-white/10 bg-white/[0.03] px-3 py-3 text-center"
+                    >
+                        <ValueSlot
+                            value={timeLeft[unit.key]}
+                            slotClassName="h-[2.9rem] min-w-[3.5rem]"
+                            valueClassName="text-[2.8rem] font-semibold text-white"
+                        />
+                        <span className="mt-3 text-[10px] uppercase leading-none tracking-[0.24em] text-ivory/42">
+                            {unit.label}
+                        </span>
+                    </div>
+                ))}
+            </div>
         </div>
     );
 }
@@ -186,26 +247,13 @@ function AuctionModal({ isExpanded, onClose, timeLeft }) {
                                     View Property Catalog
                                 </button>
                             </div>
-                        </div>
 
-                        <div className="relative flex w-full flex-col overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.04] px-5 py-4 md:w-[21rem] md:self-center md:px-6 md:py-4">
-                            <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,rgba(230,46,45,0.12)_0%,transparent_62%)]" />
-                            <span className="relative z-10 mb-3 text-xs uppercase tracking-[0.25em] text-ivory/50">T-Minus</span>
-
-                            <div className="relative z-10 flex flex-col gap-3">
-                                {countdownUnits.map((unit) => (
-                                    <div key={unit.key} className="flex min-h-[5.25rem] items-center justify-between border-b border-white/10 pb-3">
-                                        <AnimatedValue
-                                            value={timeLeft[unit.key]}
-                                            className="h-[4rem] min-w-[4.5rem] font-mono text-[4rem] font-bold leading-none tracking-tight tabular-nums text-white"
-                                        />
-                                        <span className="text-right text-xs uppercase tracking-[0.22em] text-ivory/40">
-                                            {unit.label}
-                                        </span>
-                                    </div>
-                                ))}
+                            <div className="mt-6 md:hidden">
+                                <ModalMobileCountdown timeLeft={timeLeft} />
                             </div>
                         </div>
+
+                        <ModalDesktopCountdown timeLeft={timeLeft} />
                     </motion.div>
                 </motion.div>
             )}
@@ -288,7 +336,7 @@ export default function UpcomingAuction() {
 
                         <div className="flex flex-col gap-4 border-t border-white/8 pt-3 xl:min-w-[17.5rem] xl:justify-center xl:border-l xl:border-white/4 xl:border-t-0 xl:pl-6 xl:pt-0">
                             <div>
-                                <CountdownRow timeLeft={timeLeft} compact rail />
+                                <RailCountdown timeLeft={timeLeft} />
                             </div>
                         </div>
 
@@ -329,7 +377,7 @@ export default function UpcomingAuction() {
                             </div>
 
                             <div className="relative z-10 mt-4">
-                                <CountdownRow timeLeft={timeLeft} compact />
+                                <CompactCountdown timeLeft={timeLeft} />
                             </div>
 
                             <div className="relative z-10 mt-4 border-t border-white/10 pt-4 text-xs font-medium tracking-wide text-white/62">
