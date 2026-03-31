@@ -78,9 +78,9 @@ export default function Philosophy() {
                             We focus on:
                         </span>
                     </div>
-                    <div className="phil-reveal overflow-hidden px-4">
-                        <h2 className="font-drama italic text-5xl md:text-7xl lg:text-[6rem] leading-[1.1] text-ivory">
-                            <span className="text-accent underline decoration-1 underline-offset-8">Dynamic</span> price discovery<br className="hidden md:block" /> through competitive auctions.
+                    <div className="phil-reveal px-4 pb-4">
+                        <h2 className="font-drama text-5xl md:text-7xl lg:text-[6rem] leading-[1.16] text-ivory">
+                            Price discovery<br className="hidden md:block" /> driven by <span className="text-accent">competitive</span> bidding.
                         </h2>
                     </div>
                 </div>

@@ -140,19 +140,19 @@ export default function FAQSection() {
 
             <div className="relative mx-auto max-w-6xl">
                 <div className="mb-14 flex flex-col gap-6 md:mb-16 md:flex-row md:items-end md:justify-between">
-                    <div className="max-w-3xl">
-                        <div className="mb-4 flex items-center gap-3">
+                    <div className="flex max-w-3xl flex-col gap-6">
+                        <div className="flex items-center gap-3">
                             <div className="h-1.5 w-1.5 rounded-full bg-accent animate-pulse" />
                             <span className="text-sm font-bold uppercase tracking-widest theme-text-muted">
                                 Auction Guidance
                             </span>
                         </div>
 
-                        <h2 className="text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl">
+                        <h2 className="text-4xl font-bold tracking-tight leading-[0.96] md:text-5xl lg:text-6xl">
                             FAQs
                         </h2>
 
-                        <p className="mt-5 max-w-2xl text-lg font-light leading-relaxed theme-text-muted">
+                        <p className="max-w-2xl text-lg font-light leading-relaxed theme-text-muted">
                             Clear answers for buyers and sellers, designed to remove friction and give you confidence at every step of the auction process.
                         </p>
                     </div>

@@ -43,9 +43,9 @@ export default function GetStarted() {
                     </p>
 
                     <div className="gs-reveal">
-                        <button className="relative overflow-hidden group/btn bg-accent text-white px-10 py-5 rounded-full font-medium text-base md:text-lg transition-transform duration-300 hover:scale-[1.03] active:scale-[0.98] shadow-[0_0_30px_rgba(230,46,45,0.3)]">
+                        <button className="relative overflow-hidden group/btn bg-accent text-white px-10 py-5 rounded-full font-medium text-base md:text-lg transition-colors duration-300 shadow-[0_0_30px_rgba(230,46,45,0.3)]">
                             <span className="relative z-10 flex items-center gap-3 tracking-wide">
-                                Register Now
+                                Register
                                 <ArrowRight size={20} className="group-hover/btn:translate-x-1 transition-transform" />
                             </span>
                             <span className="absolute inset-0 bg-white/20 translate-y-full group-hover/btn:translate-y-0 transition-transform duration-300 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] z-0 block" />

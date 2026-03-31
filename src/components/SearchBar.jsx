@@ -38,7 +38,7 @@ export default function SearchBar() {
         }));
     };
 
-    const selectClass = "h-11 w-full rounded-full border border-white/10 bg-white/[0.03] pl-10 pr-4 text-sm text-ivory/88 outline-none transition-all duration-300 appearance-none hover:border-white/20 hover:bg-white/[0.045] focus:border-white/28 focus:bg-white/[0.06]";
+    const selectClass = "h-10 w-full rounded-full border border-white/12 bg-white/[0.05] pl-10 pr-4 text-sm text-ivory/88 outline-none transition-all duration-300 appearance-none hover:border-white/22 hover:bg-white/[0.07] focus:border-accent/40 focus:bg-white/[0.09]";
 
     return (
         <motion.div
@@ -47,33 +47,33 @@ export default function SearchBar() {
             transition={{ duration: 0.7, delay: 0.45, ease: "easeOut" }}
             className="relative z-30 w-full"
         >
-            <div className="rounded-[1.75rem] border border-white/10 bg-[linear-gradient(145deg,rgba(13,13,18,0.82),rgba(13,13,18,0.6))] p-3 shadow-[0_24px_60px_rgba(0,0,0,0.24)] backdrop-blur-xl md:p-4">
+            <div className="rounded-[1.75rem] border border-white/16 bg-[linear-gradient(145deg,rgba(13,13,18,0.92),rgba(29,17,21,0.82))] px-4 py-3 shadow-[0_28px_80px_rgba(0,0,0,0.3)] ring-1 ring-accent/12 backdrop-blur-xl md:px-6 md:py-4">
                 <form onSubmit={handleSearch}>
                     <div className="flex flex-col gap-3 md:flex-row md:items-center">
                         <div className="relative flex-1">
-                            <Search size={18} className="absolute left-5 top-1/2 -translate-y-1/2 text-ivory/36" />
+                            <Search size={17} className="absolute left-4 top-1/2 -translate-y-1/2 text-ivory/42" />
                             <input
                                 type="text"
                                 placeholder="Search by suburb, asset, street, or reference..."
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
-                                className="h-14 w-full rounded-full border border-white/10 bg-white/[0.04] pl-14 pr-4 text-[15px] text-ivory outline-none transition-all duration-300 placeholder:text-ivory/30 hover:border-white/20 hover:bg-white/[0.05] focus:border-white/28 focus:bg-white/[0.07] md:h-16"
+                                className="h-12 w-full rounded-full border border-white/14 bg-white/[0.07] pl-12 pr-5 text-[15px] text-ivory outline-none transition-all duration-300 placeholder:text-ivory/36 hover:border-white/24 hover:bg-white/[0.09] focus:border-accent/45 focus:bg-white/[0.1] md:h-[3.25rem]"
                             />
                         </div>
 
-                        <div className="flex items-center gap-2 self-end md:self-auto">
+                        <div className="flex items-center gap-3 self-end md:self-auto">
                             <button
                                 type="button"
                                 onClick={() => setShowFilters((current) => !current)}
                                 aria-expanded={showFilters}
-                                className="inline-flex h-11 items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 text-xs font-medium uppercase tracking-[0.2em] text-ivory/70 transition-all duration-300 hover:border-white/20 hover:bg-white/[0.08]"
+                                className="inline-flex h-10 items-center gap-2 rounded-full border border-white/14 bg-white/[0.06] px-4 text-[11px] font-medium uppercase tracking-[0.2em] text-ivory/76 transition-all duration-300 hover:border-white/24 hover:bg-white/[0.1]"
                             >
                                 <SlidersHorizontal size={14} />
                                 Filters
                             </button>
                             <button
                                 type="submit"
-                                className="inline-flex h-11 items-center justify-center rounded-full border border-white/14 bg-white px-5 text-xs font-semibold uppercase tracking-[0.22em] text-obsidian shadow-[0_8px_20px_rgba(255,255,255,0.08)] transition-all duration-300 hover:-translate-y-[1px] hover:border-white/24 hover:bg-ivory hover:shadow-[0_14px_30px_rgba(255,255,255,0.16)] active:translate-y-0"
+                                className="inline-flex h-10 items-center justify-center rounded-full border border-accent/70 bg-accent px-4 text-[11px] font-semibold uppercase tracking-[0.22em] text-white shadow-[0_12px_24px_rgba(230,46,45,0.24)] transition-all duration-300 hover:border-accent hover:bg-accent/92 hover:shadow-[0_16px_30px_rgba(230,46,45,0.3)]"
                             >
                                 Search
                             </button>
@@ -89,7 +89,7 @@ export default function SearchBar() {
                                 transition={{ duration: 0.28, ease: 'easeOut' }}
                                 className="overflow-hidden"
                             >
-                                <div className="mt-3 grid gap-2 border-t border-white/8 pt-3 md:grid-cols-3">
+                                <div className="mt-4 grid gap-3 border-t border-white/10 pt-4 md:grid-cols-3">
                                     <div className="relative">
                                         <MapPin size={15} className="absolute left-4 top-1/2 -translate-y-1/2 text-ivory/38" />
                                         <select value={filters.city} onChange={handleFilterChange('city')} className={selectClass}>

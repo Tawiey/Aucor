@@ -38,7 +38,7 @@ export default function FeaturedProperties() {
                             viewport={{ once: true, margin: "-100px" }}
                             transition={{ duration: 0.6, delay: idx * 0.1 }}
                             key={property.id}
-                            className="group theme-card border theme-border rounded-2xl overflow-hidden hover:border-accent/30 transition-colors shadow-lg flex flex-col"
+                            className="theme-card border theme-border rounded-2xl overflow-hidden shadow-lg flex flex-col"
                         >
                             {/* Image Header */}
                             <div className="h-64 relative overflow-hidden">
@@ -49,7 +49,7 @@ export default function FeaturedProperties() {
                                         event.currentTarget.onerror = null;
                                         event.currentTarget.src = PROPERTY_IMAGE_FALLBACK;
                                     }}
-                                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                                    className="w-full h-full object-cover"
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
 
@@ -69,7 +69,7 @@ export default function FeaturedProperties() {
                             {/* Card Content */}
                             <div className="p-6 flex flex-col flex-1">
                                 <div className="flex justify-between items-start mb-2 gap-4">
-                                    <h3 className="font-sans font-bold text-xl leading-tight theme-text group-hover:text-accent transition-colors line-clamp-2">
+                                    <h3 className="font-sans font-bold text-xl leading-tight theme-text line-clamp-2">
                                         {property.title}
                                     </h3>
                                 </div>
@@ -81,11 +81,11 @@ export default function FeaturedProperties() {
 
                                 <div className="grid grid-cols-2 gap-4 mb-8 mt-auto pt-6 border-t theme-border">
                                     <div className="flex flex-col">
-                                        <span className="font-mono text-[10px] uppercase tracking-widest theme-text-subtle mb-1">Pricing</span>
+                                        <span className="font-mono text-[10px] uppercase tracking-widest text-ivory/56 mb-1">Pricing</span>
                                         <span className="font-sans font-medium text-sm theme-text">{property.price}</span>
                                     </div>
                                     <div className="flex flex-col">
-                                        <span className="font-mono text-[10px] uppercase tracking-widest theme-text-subtle mb-1">Scale</span>
+                                        <span className="font-mono text-[10px] uppercase tracking-widest text-ivory/56 mb-1">Scale</span>
                                         <span className="flex items-center gap-1 font-sans font-medium text-sm theme-text">
                                             <Maximize size={12} className="theme-text-subtle" /> {property.size}
                                         </span>
