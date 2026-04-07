@@ -126,6 +126,19 @@ export default function Navbar() {
                     </Link>
                 </div>
 
+                <a
+                    href={CONTACT_PHONE_HREF}
+                    className={clsx(
+                        'ml-auto inline-flex items-center justify-end gap-1.5 rounded-full px-1 py-2 text-right text-[11px] font-medium leading-none tracking-wide transition-colors duration-300 md:hidden',
+                        isFloatingHome
+                            ? 'text-white/78 hover:text-accent drop-shadow-[0_1px_12px_rgba(0,0,0,0.28)]'
+                            : 'theme-text-muted hover:text-accent'
+                    )}
+                >
+                    <Phone size={13} strokeWidth={2.2} className="shrink-0" />
+                    <span>{CONTACT_PHONE_DISPLAY}</span>
+                </a>
+
                 <Link to="/" className="hidden md:flex items-center gap-2">
                     <img
                         src="/logo-white.png"
