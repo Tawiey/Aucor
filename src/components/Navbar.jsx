@@ -8,6 +8,10 @@ import { primaryNavItems, moreNavItems } from '../data/navigation';
 
 const CONTACT_PHONE_DISPLAY = '011 033 6600';
 const CONTACT_PHONE_HREF = 'tel:+27110336600';
+const LOGIN_LABEL = 'Log In';
+const CREATE_ACCOUNT_LABEL = 'Create Account';
+const LOGIN_TO = '#';
+const CREATE_ACCOUNT_TO = '#';
 
 export default function Navbar() {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -72,12 +76,23 @@ export default function Navbar() {
         return <Link to={to} className={linkClass} onClick={onClick}>{children}</Link>;
     };
 
-    const registerButtonClass = 'relative overflow-hidden group bg-accent text-white px-4 py-3 rounded-full font-medium text-sm transition-colors duration-300';
     const mobileIconButtonClass = clsx(
         'flex h-11 w-11 items-center justify-center rounded-full border transition-all duration-300',
         isFloatingHome
             ? 'border-white/14 bg-black/18 text-white shadow-[0_10px_30px_rgba(0,0,0,0.16)] hover:border-white/28 hover:bg-black/28'
             : 'border theme-border theme-surface-2 theme-text hover:border-accent/50'
+    );
+    const desktopLoginClass = clsx(
+        'hidden md:inline-flex md:h-12 items-center justify-center text-sm font-medium leading-none transition-colors duration-300',
+        isFloatingHome
+            ? 'text-white/74 hover:text-accent drop-shadow-[0_1px_12px_rgba(0,0,0,0.28)]'
+            : 'theme-text-muted hover:text-accent'
+    );
+    const desktopCreateAccountClass = clsx(
+        'group hidden md:inline-flex md:h-12 items-center justify-center rounded-full border px-5 lg:px-6 text-sm font-medium leading-none transition-all duration-300',
+        isFloatingHome
+            ? 'border-white/14 bg-white/[0.05] text-white/88 shadow-[0_14px_34px_rgba(0,0,0,0.16)] hover:border-white/26 hover:bg-white/[0.09] hover:text-white'
+            : 'border theme-border theme-surface-2 theme-text hover:border-white/18 hover:bg-white/[0.05]'
     );
 
     return (
@@ -190,21 +205,16 @@ export default function Navbar() {
                         {CONTACT_PHONE_DISPLAY}
                     </a>
 
-                    <button className="hidden md:inline-flex md:h-12 items-center justify-center relative overflow-hidden group bg-accent text-white px-5 lg:px-6 rounded-full font-medium text-sm transition-colors duration-300">
-                        <span className="relative z-10 flex h-full items-center justify-center gap-2 leading-none tracking-wide">
-                            Register
-                            <ArrowRight size={16} />
-                        </span>
-                        <span className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] z-0 block" />
-                    </button>
+                    <a href={LOGIN_TO} className={desktopLoginClass}>
+                        {LOGIN_LABEL}
+                    </a>
 
-                    <button className={clsx(registerButtonClass, 'px-4 sm:px-5 md:hidden')}>
-                        <span className="relative z-10 flex items-center gap-2 tracking-wide">
-                            Register
-                            <ArrowRight size={16} />
+                    <a href={CREATE_ACCOUNT_TO} className={desktopCreateAccountClass}>
+                        <span className="flex items-center gap-2 tracking-wide">
+                            {CREATE_ACCOUNT_LABEL}
+                            <ArrowRight size={16} className="transition-transform duration-300 group-hover:translate-x-0.5" />
                         </span>
-                        <span className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] z-0 block" />
-                    </button>
+                    </a>
                 </div>
             </nav>
 
@@ -330,6 +340,24 @@ export default function Navbar() {
                                 </div>
                                 <ArrowRight size={16} className="text-accent/80" />
                             </a>
+
+                            <div className="relative z-10 mt-3 flex flex-col gap-2 border-t border-white/8 pt-4">
+                                <a
+                                    href={LOGIN_TO}
+                                    className="group flex items-center justify-between rounded-[1.1rem] px-4 py-3.5 text-white/76 transition-all duration-300 hover:bg-white/[0.04] hover:text-accent active:bg-white/[0.07]"
+                                >
+                                    <span className="text-sm font-medium">{LOGIN_LABEL}</span>
+                                    <ArrowRight size={16} className="text-white/42 transition-colors duration-300 group-hover:text-accent" />
+                                </a>
+
+                                <a
+                                    href={CREATE_ACCOUNT_TO}
+                                    className="group flex items-center justify-between rounded-[1.25rem] border border-white/10 bg-white/[0.03] px-4 py-3.5 text-white transition-all duration-300 hover:border-white/18 hover:bg-white/[0.06]"
+                                >
+                                    <span className="text-sm font-medium">{CREATE_ACCOUNT_LABEL}</span>
+                                    <ArrowRight size={16} className="text-white/72 transition-transform duration-300 group-hover:translate-x-0.5" />
+                                </a>
+                            </div>
 
                             <div className="relative z-10 mt-auto rounded-[1.5rem] border border-white/10 bg-white/[0.03] p-4">
                                 <div className="flex items-center justify-between gap-4">

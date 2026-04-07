@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
-import SearchBar from './SearchBar';
 import UpcomingAuction from './UpcomingAuction';
+import TrustedByMarquee from './TrustedByMarquee';
 
 export default function Hero() {
     const containerRef = useRef(null);
@@ -26,7 +26,7 @@ export default function Hero() {
     }, []);
 
     return (
-        <section ref={containerRef} className="relative min-h-[100dvh] w-full overflow-hidden px-6 pb-20 pt-40 md:px-16 md:pb-24 md:pt-44" id="home">
+        <section ref={containerRef} className="relative min-h-[100dvh] w-full overflow-hidden px-6 pb-16 pt-36 md:px-16 md:pb-20 md:pt-40" id="home">
             {/* Background Image & Overlays */}
             <div className="absolute inset-0 z-0">
                 <img
@@ -40,24 +40,22 @@ export default function Hero() {
             </div>
 
             {/* Content */}
-            <div className="relative z-10 mx-auto flex min-h-[calc(100dvh-13rem)] w-[92%] max-w-6xl flex-col justify-center md:w-[94%] md:max-w-7xl">
-                <div className="max-w-5xl">
-                    <h1 className="hero-reveal font-drama text-[3rem] leading-[0.96] text-ivory md:text-[4.6rem] lg:whitespace-nowrap xl:text-[5.6rem]">
-                        Find auction properties, fast.
-                    </h1>
+            <div className="relative z-10 mx-auto flex min-h-[calc(100dvh-10rem)] w-[92%] max-w-7xl flex-col justify-end md:w-[94%]">
+                <div className="grid items-end gap-10 pb-6 pt-12 lg:grid-cols-[minmax(0,1.05fr)_minmax(24rem,0.95fr)] lg:gap-12 lg:pb-10 lg:pt-20">
+                    <div className="max-w-3xl">
+                        <h1 className="hero-reveal mt-7 font-sans text-[3.35rem] font-bold leading-[0.98] tracking-[-0.045em] text-ivory sm:text-[4.1rem] md:text-[5rem] xl:text-[5.8rem]">
+                            Find auction properties, fast.
+                        </h1>
 
-                    <p className="hero-reveal mt-5 max-w-2xl text-base leading-relaxed text-ivory/74 md:text-lg">
-                        Search across commercial and residential auctions—built for serious buyers and sellers.
-                    </p>
-                </div>
+                        <p className="hero-reveal mt-6 max-w-xl text-base leading-relaxed text-ivory/70 md:text-lg">
+                            Browse verified residential, commercial, and industrial assets in Aucor&apos;s upcoming auctions.
+                        </p>
+                    </div>
 
-                <div className="hero-reveal mt-10 w-full md:mt-12">
-                    <SearchBar />
-                </div>
-
-                <div className="mt-16 md:mt-24">
                     <UpcomingAuction />
                 </div>
+
+                <TrustedByMarquee />
             </div>
         </section>
     );

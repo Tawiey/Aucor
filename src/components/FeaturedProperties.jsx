@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { MapPin, Maximize, ArrowRight } from 'lucide-react';
 import { dummyProperties, PROPERTY_IMAGE_FALLBACK } from '../data/properties';
+import SearchBar from './SearchBar';
 
 export default function FeaturedProperties() {
     const featured = dummyProperties.slice(0, 3);
@@ -14,11 +15,11 @@ export default function FeaturedProperties() {
                         <div className="flex items-center gap-3 mb-4">
                             <div className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
                             <h3 className="font-sans font-bold tracking-widest uppercase text-sm theme-text-muted">
-                                Featured Assets
+                                Featured Properties
                             </h3>
                         </div>
                         <h2 className="font-sans font-bold text-3xl md:text-5xl tracking-tight theme-text">
-                            Upcoming <span className="font-drama italic font-normal text-accent">Highlights</span>
+                            Selected <span className="font-drama italic font-normal text-accent">Highlights</span>
                         </h2>
                     </div>
                     <Link
@@ -28,6 +29,10 @@ export default function FeaturedProperties() {
                         View Full Catalogue
                         <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
                     </Link>
+                </div>
+
+                <div className="mb-10 md:mb-12">
+                    <SearchBar variant="section" />
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

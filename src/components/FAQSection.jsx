@@ -6,34 +6,34 @@ const faqGroups = [
     {
         id: 'sellers',
         label: 'For Sellers',
-        intro: 'Clear answers for owners preparing to bring property to auction.',
+        intro: 'Answers for owners preparing to sell by auction.',
         items: [
             {
                 question: 'What is a reserve price?',
-                answer: 'A reserve price is the seller’s mandate value. The purpose of a reserve price is to offer the seller protection on value and provide the option to reject an offer, should it be lower than the reserve. The reserve price is stipulated and agreed in a confidential mandate agreement between Aucor Property and the seller. It is typically determined by various factors, such as a due diligence process and market analysis.'
+                answer: 'The reserve price is the seller’s confidential minimum mandate price. It protects the seller by allowing a bid below reserve to be declined. Aucor and the seller agree it in the mandate after due diligence and market analysis.'
             },
             {
-                question: 'How much does it cost to take a property to auction and who assumes this cost?',
-                answer: 'The default cost to put a property on auction is approximately R50,000. This includes the cost of conducting the auction, as well as the marketing and advertising elements involved in generating interest among potential buyers. These costs can be negotiated at the time of the mandate signing. In most cases, Aucor Property will consider sharing or absorbing this cost. This is part of what is agreed between the seller and auctioneer, at mandate signature. Importantly, the commission is paid over and above the mandate price, and the seller receives 100% of the bid price.'
+                question: 'What does it cost to sell by auction?',
+                answer: 'The default cost is about R50,000 for the auction and its marketing. That cost can be negotiated, and Aucor may share or absorb part of it. Commission sits above the mandate price, so the seller receives 100% of the bid price.'
             },
             {
-                question: 'What are the default terms and conditions of the sale?',
-                answer: 'Aucor Property has a robust and proven terms sheet that effectively covers the interests of all parties involved in the transaction. The standardised agreement can be tailored to accommodate the seller’s requirements through a consultative process between the seller and the Business Development representative. A full set of terms and conditions can be found on the Aucor Property website.'
+                question: 'What terms govern the sale?',
+                answer: 'Aucor uses a proven standard terms sheet designed to protect all parties. It can be tailored to the seller’s needs during the mandate process. Full terms and conditions are available on the Aucor Property website.'
             },
             {
-                question: 'How does Aucor Property maximise the marketing reach for a property?',
-                answer: 'Aucor Property uses a robust, hybrid marketing strategy to reach potential buyers. We tailor a range of marketing tools to create the right mix for each property, which may include but are not limited to: The Aucor Property website as a central point for all properties where information is available to prospective buyers; organic and paid social media campaigns on Facebook, LinkedIn and Instagram; targeted direct marketing to a database of 30 000+ subscribers; digital marketing campaigns with leading property portals; outdoor marketing using street pole advertising and billboards; and print media advertising in relevant publications where necessary.'
+                question: 'How do you market a property?',
+                answer: 'Aucor uses a hybrid campaign built for the asset and buyer audience. It can include the Aucor website, social media, direct marketing to a database of 30,000+ subscribers, major property portals, outdoor media, and selected print where needed.'
             }
         ]
     },
     {
         id: 'buyers',
         label: 'For Buyers',
-        intro: 'Guidance for bidding, registration, and what happens after the hammer falls.',
+        intro: 'What to know before you register, bid, and buy.',
         items: [
             {
                 question: 'How do you register for an auction?',
-                answer: 'Potential bidders can register for the auction either at the venue on the day, or through the pre-registration option available on the Aucor Property website. Please note that online registrations close the evening before the auction event. All eligible bidders will need to provide FICA documentation and pay a refundable fee of R50,000 when registering. For more information, contact the Aucor Property office on 011 033 6600.'
+                answer: 'You can register at the venue or pre-register on the Aucor Property website. Online registration closes the evening before the auction. All bidders must provide FICA documents and pay a refundable R50,000 registration fee. For help, call 011 033 6600.'
             },
             {
                 question: 'Where do auctions take place?',
@@ -41,11 +41,11 @@ const faqGroups = [
             },
             {
                 question: 'Can I bid if I cannot attend the auction in person?',
-                answer: 'Yes. Potential buyers who are unable to attend the auction can still participate. Telephonic bidding can be facilitated by prior arrangement. All auctions are live streamed on Aucor Property’s website, YouTube channel, and Facebook page.'
+                answer: 'Yes. Buyers who cannot attend can bid telephonically by prior arrangement. Auctions are also live streamed on the Aucor Property website, YouTube, and Facebook.'
             },
             {
                 question: 'What happens if I’m the highest bidder after the fall of the hammer?',
-                answer: 'After signing the Conditions of Sale Agreement, the highest bidder will need to submit their deposit and commission to the Aucor Property Trust Account. If the sale of property is not confirmed on the auction floor, the seller will then be given the option to accept or reject the bid.'
+                answer: 'You sign the Conditions of Sale and pay the deposit and commission into the Aucor Property Trust Account. If the property did not meet reserve on the floor, the signed offer is then presented to the seller, who may accept or reject it.'
             }
         ]
     }
@@ -153,7 +153,7 @@ export default function FAQSection() {
                         </h2>
 
                         <p className="max-w-2xl text-lg font-light leading-relaxed theme-text-muted">
-                            Clear answers for buyers and sellers, designed to remove friction and give you confidence at every step of the auction process.
+                            Clear answers before you sell, register, or bid.
                         </p>
                     </div>
 
@@ -161,7 +161,7 @@ export default function FAQSection() {
                         href="#contact"
                         className="inline-flex items-center gap-2 text-sm font-medium uppercase tracking-widest theme-text-muted transition-colors hover:text-accent"
                     >
-                        Still need clarity?
+                        Need more detail?
                         <ArrowRight size={16} />
                     </a>
                 </div>

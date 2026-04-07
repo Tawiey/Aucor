@@ -8,6 +8,7 @@ The current project emphasis is on:
 
 - premium property-auction presentation
 - clear conversion paths into registration and property discovery
+- route-based auction discovery and event detail pages
 - polished motion, spacing, and typography
 - consistency between navbar, hero, section transitions, and footer
 
@@ -49,6 +50,8 @@ Top-level app shell:
 Primary routes:
 
 - `/` -> home / landing page
+- `/auctions` -> upcoming auctions index
+- `/auctions/:slug` -> dedicated auction detail
 - `/properties` -> catalog
 - `/properties/:id` -> property detail
 
@@ -60,6 +63,7 @@ Home page composition:
   - `Features`
   - `Philosophy`
   - `Protocol`
+  - `Testimonials`
   - `GetStarted`
   - `FAQSection`
 
@@ -82,11 +86,11 @@ Home page composition:
 
 - [`src/components/UpcomingAuction.jsx`](/Users/tawandamutambwe/Documents/Antigravity/Aucor/src/components/UpcomingAuction.jsx)
   - auction countdown / promo card
-  - expanded modal
+  - routes users into auction detail pages
   - frequent source of visual QA feedback
 
 - [`src/components/FeaturedProperties.jsx`](/Users/tawandamutambwe/Documents/Antigravity/Aucor/src/components/FeaturedProperties.jsx)
-  - “Upcoming Highlights” / featured card grid
+  - “Selected Highlights” / featured card grid
 
 - [`src/components/Features.jsx`](/Users/tawandamutambwe/Documents/Antigravity/Aucor/src/components/Features.jsx)
   - “Engineered for results”
@@ -96,7 +100,21 @@ Home page composition:
   - large editorial statement section
 
 - [`src/components/GetStarted.jsx`](/Users/tawandamutambwe/Documents/Antigravity/Aucor/src/components/GetStarted.jsx)
-  - lower-page registration CTA section
+  - lower-page pre-registration CTA section
+
+- [`src/components/Testimonials.jsx`](/Users/tawandamutambwe/Documents/Antigravity/Aucor/src/components/Testimonials.jsx)
+  - split intro + animated testimonial stream
+  - compact cards in two staggered columns on desktop
+
+- [`src/components/TrustedByMarquee.jsx`](/Users/tawandamutambwe/Documents/Antigravity/Aucor/src/components/TrustedByMarquee.jsx)
+  - full-width trust logo band
+  - slow marquee with minimal chrome
+
+- [`src/pages/Auctions.jsx`](/Users/tawandamutambwe/Documents/Antigravity/Aucor/src/pages/Auctions.jsx)
+  - image-led auctions index page
+
+- [`src/pages/AuctionDetail.jsx`](/Users/tawandamutambwe/Documents/Antigravity/Aucor/src/pages/AuctionDetail.jsx)
+  - dedicated auction event detail page
 
 - [`src/components/FAQSection.jsx`](/Users/tawandamutambwe/Documents/Antigravity/Aucor/src/components/FAQSection.jsx)
   - FAQ heading + accordions
@@ -118,6 +136,7 @@ When editing this project, preserve these principles:
   - overlay reveals
   - slight arrow motion
   - very restrained lift only when clearly beneficial
+- Copy should feel clear, direct, and short. Prefer plain English over institutional language.
 - Avoid noisy hover behavior on informational cards.
 - CTA hierarchy should stay clear and consistent.
 - Spacing rhythm matters a lot on this project; padding inconsistencies are very noticeable.
@@ -131,26 +150,23 @@ These are the conventions future agents should preserve unless explicitly asked 
 - Favicon should use `public/favicon-32x32.png`.
 - The top nav logo should use `public/logo-white.png`.
 
-### Primary CTA Copy
+### CTA Copy
 
-Primary registration CTA copy has been standardized to:
-
-- `Register`
-
-Do not casually reintroduce variants like:
-
-- `Register now`
-- `Register Now`
-
-The exception is when the action is intentionally different, for example:
-
-- `Pre-Register`
+- Use action-specific labels, not generic CTA copy.
+- Auction-event CTAs should prefer `Pre-register to bid`.
+- Navbar account CTAs are now:
+  - `Log In`
+  - `Create Account`
+- Avoid reintroducing generic `Register now` / `Register Now` copy unless the user explicitly asks.
 
 ### Navbar Behavior
 
 - Menu links and landline should feel centered and stable.
 - Hover motion on nav links should be restrained; avoid y-axis “jump” effects unless explicitly requested.
 - Navbar spacing should feel aligned with the hero search bar spacing system.
+- Desktop right-side account actions should be lighter than the main auction CTAs:
+  - `Log In` is text-only with red hover text
+  - `Create Account` is a ghost button with subtle arrow motion
 
 ### Search Bar
 
@@ -162,6 +178,29 @@ The exception is when the action is intentionally different, for example:
 
 - Card hover theatrics should be limited.
 - If hover is used, prioritize it on buttons rather than the entire card/image/title.
+
+### Auctions
+
+- The site now uses route-based auction discovery, not modal-first auction detail.
+- `UpcomingAuction` on the homepage should route into `/auctions/:slug`.
+- The auctions index should feel editorial and image-led, with less copy and fewer outlined containers.
+- Auction property previews should use thumbnails where possible.
+- Countdown modules should stay compact, elegant, and low-noise.
+
+### How It Works
+
+- `Protocol` is a pinned editorial section powered by `src/data/auctionProcess.js`.
+- Process imagery now lives in `public/Process/Aucor-Step1.png` through `Aucor-Step4.png`.
+- Keep process images in full color. Do not reintroduce grayscale treatment.
+- Image crops should use centered `object-cover` framing.
+
+### Testimonials / Trust
+
+- The testimonials section now sits below `How It Works`.
+- Desktop layout uses a smaller left intro panel and a larger right animated panel.
+- Testimonial cards should keep consistent width/height and read clearly at a compact size.
+- The second testimonial column should stay half a card offset for readability.
+- Trusted-by logos should span the available width, move slowly, and avoid outlined logo capsules.
 
 ### Philosophy Section
 
@@ -185,8 +224,11 @@ The recent `DES-8` refinement pass included work across:
 - hero width alignment
 - search bar prominence and spacing cleanup
 - next auction countdown / modal refinements
+- route-based auctions pages and auction details
 - featured card hover simplification
 - philosophy copy and readability updates
+- homepage micro-copy simplification
+- testimonials redesign
 - FAQ header spacing
 - footer seam and spacing
 - CTA copy consistency
@@ -208,8 +250,11 @@ These sections tend to be sensitive to small visual changes:
 
 - navbar
 - hero search bar
-- next auction card and modal countdown
+- next auction card and countdown
+- auctions index hero and countdown
 - “Engineered for results”
+- testimonials stream
+- `How It Works` pinned cards
 - FAQ heading block
 - footer top seam
 
@@ -229,6 +274,7 @@ When touching these, check:
 - If the user asks for a “review,” focus on regressions, alignment issues, spacing issues, hover noise, responsiveness, and missing tests.
 - For layout changes, verify mobile, tablet, and desktop behavior.
 - For date-sensitive auction UI, confirm the target date rather than assuming.
+- For copy changes, keep sentences short and front-load meaning.
 
 ## Recommended Validation Checklist
 
@@ -240,6 +286,9 @@ After meaningful UI edits, check:
 - hero width relative to navbar
 - search bar control heights and gaps
 - next auction countdown layout at multiple widths
+- auctions pages and auction-detail routing
+- process image treatment and cropping
+- testimonial stream layout at desktop and mobile
 - FAQ heading spacing
 - footer seam against the section above
 
@@ -251,4 +300,3 @@ Important public assets currently in use:
 - [`public/logo-white.png`](/Users/tawandamutambwe/Documents/Antigravity/Aucor/public/logo-white.png)
 
 If branding assets change again, update both the implementation and this file.
-

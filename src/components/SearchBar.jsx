@@ -2,8 +2,9 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Search, MapPin, Building2, AlignLeft, SlidersHorizontal } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
+import clsx from 'clsx';
 
-export default function SearchBar() {
+export default function SearchBar({ variant = 'hero' }) {
     const navigate = useNavigate();
     const [searchQuery, setSearchQuery] = useState('');
     const [showFilters, setShowFilters] = useState(false);
@@ -38,16 +39,35 @@ export default function SearchBar() {
         }));
     };
 
-    const selectClass = "h-10 w-full rounded-full border border-white/12 bg-white/[0.05] pl-10 pr-4 text-sm text-ivory/88 outline-none transition-all duration-300 appearance-none hover:border-white/22 hover:bg-white/[0.07] focus:border-accent/40 focus:bg-white/[0.09]";
+    const isHero = variant === 'hero';
+    const shellClassName = isHero
+        ? 'rounded-[1.75rem] border border-white/16 bg-[linear-gradient(145deg,rgba(13,13,18,0.92),rgba(29,17,21,0.82))] px-4 py-3 shadow-[0_28px_80px_rgba(0,0,0,0.3)] ring-1 ring-accent/12 backdrop-blur-xl md:px-6 md:py-4'
+        : 'rounded-[1.65rem] border border-white/10 bg-[linear-gradient(145deg,rgba(18,18,24,0.9),rgba(18,12,18,0.82))] px-4 py-3 shadow-[0_22px_60px_rgba(0,0,0,0.18)] backdrop-blur-md md:px-5 md:py-4';
+    const inputClassName = isHero
+        ? 'h-12 w-full rounded-full border border-white/14 bg-white/[0.07] pl-12 pr-5 text-[15px] text-ivory outline-none transition-all duration-300 placeholder:text-ivory/36 hover:border-white/24 hover:bg-white/[0.09] focus:border-accent/45 focus:bg-white/[0.1] md:h-[3.25rem]'
+        : 'h-11 w-full rounded-full border border-white/12 bg-white/[0.045] pl-12 pr-5 text-sm text-ivory outline-none transition-all duration-300 placeholder:text-ivory/34 hover:border-white/22 hover:bg-white/[0.075] focus:border-accent/40 focus:bg-white/[0.085] md:h-12';
+    const selectClass = clsx(
+        'w-full rounded-full border pl-10 pr-4 text-sm text-ivory/88 outline-none transition-all duration-300 appearance-none',
+        isHero
+            ? 'h-10 border-white/12 bg-white/[0.05] hover:border-white/22 hover:bg-white/[0.07] focus:border-accent/40 focus:bg-white/[0.09]'
+            : 'h-10 border-white/10 bg-white/[0.04] hover:border-white/20 hover:bg-white/[0.065] focus:border-accent/38 focus:bg-white/[0.08]'
+    );
+    const filterButtonClassName = isHero
+        ? 'inline-flex h-10 items-center gap-2 rounded-full border border-white/14 bg-white/[0.06] px-4 text-[11px] font-medium uppercase tracking-[0.2em] text-ivory/76 transition-all duration-300 hover:border-white/24 hover:bg-white/[0.1]'
+        : 'inline-flex h-10 items-center gap-2 rounded-full border border-white/12 bg-white/[0.04] px-4 text-[11px] font-medium uppercase tracking-[0.2em] text-ivory/74 transition-all duration-300 hover:border-white/22 hover:bg-white/[0.08]';
+    const submitButtonClassName = isHero
+        ? 'group relative inline-flex h-10 items-center justify-center overflow-hidden rounded-full border border-accent/70 bg-accent px-4 text-[11px] font-semibold uppercase tracking-[0.22em] text-white shadow-[0_12px_24px_rgba(230,46,45,0.24)] transition-colors duration-300 hover:border-accent hover:bg-accent/92'
+        : 'group relative inline-flex h-10 items-center justify-center overflow-hidden rounded-full border border-accent/70 bg-accent px-4 text-[11px] font-semibold uppercase tracking-[0.22em] text-white shadow-[0_10px_22px_rgba(230,46,45,0.18)] transition-colors duration-300 hover:border-accent hover:bg-accent/92';
+    const transitionDelay = isHero ? 0.45 : 0.12;
 
     return (
         <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.45, ease: "easeOut" }}
+            transition={{ duration: 0.7, delay: transitionDelay, ease: 'easeOut' }}
             className="relative z-30 w-full"
         >
-            <div className="rounded-[1.75rem] border border-white/16 bg-[linear-gradient(145deg,rgba(13,13,18,0.92),rgba(29,17,21,0.82))] px-4 py-3 shadow-[0_28px_80px_rgba(0,0,0,0.3)] ring-1 ring-accent/12 backdrop-blur-xl md:px-6 md:py-4">
+            <div className={shellClassName}>
                 <form onSubmit={handleSearch}>
                     <div className="flex flex-col gap-3 md:flex-row md:items-center">
                         <div className="relative flex-1">
@@ -57,7 +77,7 @@ export default function SearchBar() {
                                 placeholder="Search by suburb, asset, street, or reference..."
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
-                                className="h-12 w-full rounded-full border border-white/14 bg-white/[0.07] pl-12 pr-5 text-[15px] text-ivory outline-none transition-all duration-300 placeholder:text-ivory/36 hover:border-white/24 hover:bg-white/[0.09] focus:border-accent/45 focus:bg-white/[0.1] md:h-[3.25rem]"
+                                className={inputClassName}
                             />
                         </div>
 
@@ -66,16 +86,17 @@ export default function SearchBar() {
                                 type="button"
                                 onClick={() => setShowFilters((current) => !current)}
                                 aria-expanded={showFilters}
-                                className="inline-flex h-10 items-center gap-2 rounded-full border border-white/14 bg-white/[0.06] px-4 text-[11px] font-medium uppercase tracking-[0.2em] text-ivory/76 transition-all duration-300 hover:border-white/24 hover:bg-white/[0.1]"
+                                className={filterButtonClassName}
                             >
                                 <SlidersHorizontal size={14} />
                                 Filters
                             </button>
                             <button
                                 type="submit"
-                                className="inline-flex h-10 items-center justify-center rounded-full border border-accent/70 bg-accent px-4 text-[11px] font-semibold uppercase tracking-[0.22em] text-white shadow-[0_12px_24px_rgba(230,46,45,0.24)] transition-all duration-300 hover:border-accent hover:bg-accent/92 hover:shadow-[0_16px_30px_rgba(230,46,45,0.3)]"
+                                className={submitButtonClassName}
                             >
-                                Search
+                                <span className="relative z-10">Search</span>
+                                <span className="absolute inset-0 z-0 block translate-y-full bg-white/20 transition-transform duration-300 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] group-hover:translate-y-0" />
                             </button>
                         </div>
                     </div>

@@ -1,37 +1,7 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-const steps = [
-    {
-        num: '01',
-        title: 'Multiple Auction Event',
-        desc: 'Multiple monthly auctions are held in Johannesburg at The Houghton Golf Club. The venue is centrally located for convenience, and protocols are in place to ensure a smooth, professional event day for every guest.',
-        image: '/istrfry-marcus-VLjIWo_Kmao-unsplash.jpg',
-        accent: 'event'
-    },
-    {
-        num: '02',
-        title: 'Registration',
-        desc: 'All potential bidders are required to register for the auction and pay a refundable registration fee of R50,000. FICA requirements must be met, and a convenient pre-registration facility is available on the Aucor Property website.',
-        image: '/property-images/syed-ayan-malik-DI3MlpRdYeE-unsplash.jpg',
-        accent: 'registration'
-    },
-    {
-        num: '03',
-        title: 'Auction',
-        desc: 'The live auction begins at 11h00 and is conducted by a highly skilled accredited auctioneer. Buyers who cannot attend in person are able to bid telephonically by prior arrangement, and the auction is also live streamed online.',
-        image: '/property-images/dj-steiner-DLpgvZWOnuU-unsplash.jpg',
-        accent: 'auction'
-    },
-    {
-        num: '04',
-        title: 'Sale Agreement',
-        desc: 'The highest bidder is assisted in signing the Conditions of Sale Agreement, and the deposit and commission are paid into the Aucor Property Trust Account. The signed offer is then presented to the seller, who may accept or reject the bid if the reserve price is not met.',
-        image: '/property-images/wrs-tm-pl-TCkIri6lxEo-unsplash.jpg',
-        accent: 'agreement'
-    }
-];
+import { auctionProcessSteps as steps } from '../data/auctionProcess';
 
 function AccentOverlay({ accent }) {
     if (accent === 'event') {
@@ -105,7 +75,7 @@ function VisualPanel({ step }) {
             <img
                 src={step.image}
                 alt={step.title}
-                className="h-full w-full object-cover opacity-28 grayscale transition-transform duration-1000"
+                className="h-full w-full object-cover object-center opacity-48 transition-transform duration-1000"
             />
             <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(10,10,14,0.52),rgba(10,10,14,0.78)),radial-gradient(circle_at_top_right,rgba(230,46,45,0.06),transparent_22%)]" />
             <AccentOverlay accent={step.accent} />
@@ -171,7 +141,7 @@ export default function Protocol() {
                     </h2>
 
                     <p className="mt-5 max-w-2xl text-lg font-light leading-relaxed text-ivory/60">
-                        A clear view of what happens from event registration through to the final sale agreement.
+                        The process, from registration to signed sale.
                     </p>
                 </div>
             </div>
