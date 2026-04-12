@@ -60,12 +60,12 @@ export default function Philosophy() {
                 <div className="flex flex-col gap-4 items-center">
                     <div className="phil-reveal overflow-hidden">
                         <span className="font-sans font-medium text-lg md:text-xl text-ivory/60 tracking-wide">
-                            Most real estate focuses on:
+                            Most of the market relies on:
                         </span>
                     </div>
                     <div className="phil-reveal overflow-hidden">
                         <span className="font-sans font-light text-xl md:text-2xl text-ivory/50 block">
-                            conventional listings and prolonged negotiations.
+                            long listings and slow negotiations.
                         </span>
                     </div>
                 </div>
@@ -80,7 +80,7 @@ export default function Philosophy() {
                     </div>
                     <div className="phil-reveal px-4 pb-4">
                         <h2 className="font-drama text-5xl md:text-7xl lg:text-[6rem] leading-[1.16] text-ivory">
-                            Price discovery<br className="hidden md:block" /> driven by <span className="text-accent">competitive</span> bidding.
+                            Price discovery<br className="hidden md:block" /> through <span className="text-accent">competitive</span> bidding.
                         </h2>
                     </div>
                 </div>

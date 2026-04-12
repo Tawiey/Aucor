@@ -108,5 +108,167 @@ export const dummyProperties = [
             email: "chadd@aucor.com",
             image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80"
         }
+    },
+    {
+        id: "P5912",
+        title: "Edenvale - Multi-Let Business Campus",
+        location: "18 Terrace Road, Eastleigh, Edenvale",
+        city: "Johannesburg",
+        suburb: "Edenvale",
+        type: "Commercial",
+        price: "R24,000,000 Estimate",
+        size: "6 850m² GLA",
+        auctionDate: "12 May 2026",
+        status: "Upcoming",
+        image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80",
+        description: "An established multi-building office campus with a diversified tenant profile and phased rental upside. The asset offers strong accessibility, adaptable floorplates, and clear repositioning potential for active investors.",
+        features: [
+            "Multi-let income profile",
+            "Basement and open parking",
+            "Adaptable office floorplates",
+            "Close to major arterial routes"
+        ],
+        agent: {
+            name: "Michael Ross",
+            role: "Commercial Director",
+            phone: "082 555 1234",
+            email: "michael@aucor.com",
+            image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80"
+        }
+    },
+    {
+        id: "P5913",
+        title: "Bryanston - Neighbourhood Retail Strip",
+        location: "63 Main Road, Bryanston",
+        city: "Johannesburg",
+        suburb: "Bryanston",
+        type: "Retail",
+        price: "R16,900,000 Estimate",
+        size: "2 940m² GLA",
+        auctionDate: "12 May 2026",
+        status: "Upcoming",
+        image: "https://images.unsplash.com/photo-1460317442991-0ec209397118?auto=format&fit=crop&w=1200&q=80",
+        description: "Well-positioned convenience retail centre serving a mature residential catchment. The strip benefits from strong visibility, repeat footfall, and a stable mix of service-led tenancies.",
+        features: [
+            "Strong roadside exposure",
+            "Stable convenience tenant mix",
+            "Dual access points",
+            "Dense surrounding catchment"
+        ],
+        agent: {
+            name: "Sarah Jenkins",
+            role: "Retail Investment Specialist",
+            phone: "071 222 9876",
+            email: "sarah@aucor.com",
+            image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80"
+        }
+    },
+    {
+        id: "P5914",
+        title: "Gqeberha - Portside Logistics Facility",
+        location: "12 Neptune Street, Deal Party",
+        city: "Gqeberha",
+        suburb: "Deal Party",
+        type: "Industrial",
+        price: "R27,500,000 Estimate",
+        size: "18 600m²",
+        auctionDate: "09 Jun 2026",
+        status: "Upcoming",
+        image: "https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=1200&q=80",
+        description: "Heavy-duty logistics facility positioned near the port and key freight corridors. The property combines warehousing, loading infrastructure, and administrative accommodation suited to large-scale industrial users.",
+        features: [
+            "Port-adjacent location",
+            "Large hardstand yard",
+            "Multiple loading bays",
+            "Integrated office component"
+        ],
+        agent: {
+            name: "Chadd Drake",
+            role: "Business Development Manager",
+            phone: "083 289 3816",
+            email: "chadd@aucor.com",
+            image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80"
+        }
+    },
+    {
+        id: "P5915",
+        title: "Pretoria West - Cold Storage Distribution Hub",
+        location: "41 Charlotte Maxeke Street, Pretoria West",
+        city: "Pretoria",
+        suburb: "Pretoria West",
+        type: "Industrial",
+        price: "R14,800,000 Estimate",
+        size: "5 300m²",
+        auctionDate: "09 Jun 2026",
+        status: "Upcoming",
+        image: "https://images.unsplash.com/photo-1581092919535-7146ff1a5905?auto=format&fit=crop&w=1200&q=80",
+        description: "Purpose-adapted cold-chain warehouse with distribution capability, secure circulation, and immediate utility for regional food and pharmaceutical operators.",
+        features: [
+            "Temperature-controlled storage",
+            "Secure loading court",
+            "Generator backup capability",
+            "Regional distribution access"
+        ],
+        agent: {
+            name: "Sarah Jenkins",
+            role: "Industrial Specialist",
+            phone: "071 222 9876",
+            email: "sarah@aucor.com",
+            image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80"
+        }
+    },
+    {
+        id: "P5916",
+        title: "Cape Town - Mixed-Use Urban Block",
+        location: "22 Buitenkant Street, Cape Town CBD",
+        city: "Cape Town",
+        suburb: "Cape Town CBD",
+        type: "Mixed Use",
+        price: "R31,000,000 Estimate",
+        size: "4 980m² Bulk",
+        auctionDate: "14 Jul 2026",
+        status: "Upcoming",
+        image: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=1200&q=80",
+        description: "Rare inner-city mixed-use opportunity combining residential, hospitality, and ground-floor activation potential within one adaptable urban block.",
+        features: [
+            "Prime CBD positioning",
+            "Adaptive reuse potential",
+            "Street-facing activation",
+            "Hospitality and residential upside"
+        ],
+        agent: {
+            name: "Michael Ross",
+            role: "Commercial Director",
+            phone: "082 555 1234",
+            email: "michael@aucor.com",
+            image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80"
+        }
+    },
+    {
+        id: "P5917",
+        title: "Midrand - Data-Ready Warehouse Campus",
+        location: "6 New Road, Midrand",
+        city: "Johannesburg",
+        suburb: "Midrand",
+        type: "Industrial",
+        price: "R19,600,000 Estimate",
+        size: "7 950m²",
+        auctionDate: "12 Aug 2026",
+        status: "Upcoming",
+        image: "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1200&q=80",
+        description: "Modern warehouse campus with robust connectivity, scalable power, and strong occupational appeal for tech-enabled logistics and fulfillment businesses.",
+        features: [
+            "Scalable power provision",
+            "High-speed fibre connectivity",
+            "Expansion-ready site layout",
+            "Strong Midrand logistics positioning"
+        ],
+        agent: {
+            name: "Chadd Drake",
+            role: "Business Development Manager",
+            phone: "083 289 3816",
+            email: "chadd@aucor.com",
+            image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80"
+        }
     }
 ];

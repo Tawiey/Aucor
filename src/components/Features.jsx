@@ -7,8 +7,8 @@ const STATS = [
         value: 17.96,
         decimals: 2,
         suffix: ' Billion',
-        label: 'Rand value in sales',
-        supportingCopy: 'Measured across transactions executed through Aucor Property.',
+        label: 'Rand value sold',
+        supportingCopy: 'Across transactions closed by Aucor Property.',
         accent: 'Market Value',
         duration: 2800
     },
@@ -18,8 +18,8 @@ const STATS = [
         value: 1982,
         decimals: 0,
         suffix: '',
-        label: 'Properties sold to date',
-        supportingCopy: 'A long track record of closed deals across commercial and residential stock.',
+        label: 'Properties sold',
+        supportingCopy: 'Closed across commercial and residential assets.',
         accent: 'Closed Transactions',
         duration: 2550
     },
@@ -30,8 +30,8 @@ const STATS = [
         decimals: 0,
         suffix: '',
         finalSuffix: '+',
-        label: 'Years of combined industry experience',
-        supportingCopy: 'Specialist expertise spanning brokerage, auctions, and investment advisory.',
+        label: 'Years of combined experience',
+        supportingCopy: 'Across auctions, brokerage, and investment advisory.',
         accent: 'Combined Expertise',
         duration: 2450
     }
@@ -206,7 +206,7 @@ export default function Features() {
                     Engineered for <span className="font-drama font-normal italic text-accent">results.</span>
                 </h2>
                 <p className="mb-16 max-w-2xl text-lg font-light leading-relaxed text-ivory/60 md:mb-20">
-                    The traditional market is slow. We engineered functional mechanisms designed to ignite liquidity, ensure price discovery, and deliver a premium curation of opportunities.
+                    Auctions sharpen price discovery, unlock liquidity, and surface stronger opportunities.
                 </p>
 
                 <div className="grid grid-cols-1 gap-6 md:grid-cols-2">

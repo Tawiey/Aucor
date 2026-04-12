@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import PropertiesCatalog from './pages/PropertiesCatalog';
 import PropertyDetail from './pages/PropertyDetail';
 import Auctions from './pages/Auctions';
+import AuctionDetail from './pages/AuctionDetail';
 import Services from './pages/Services';
 import Contact from './pages/Contact';
 import About from './pages/About';
@@ -24,6 +25,7 @@ function App() {
         <Route path="/properties" element={<PropertiesCatalog />} />
         <Route path="/properties/:id" element={<PropertyDetail />} />
         <Route path="/auctions" element={<Auctions />} />
+        <Route path="/auctions/:slug" element={<AuctionDetail />} />
         <Route path="/services" element={<Services />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/about" element={<About />} />
