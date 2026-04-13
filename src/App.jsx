@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import './App.css';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -13,12 +13,16 @@ import About from './pages/About';
 import Team from './pages/Team';
 import Selling from './pages/Selling';
 import Careers from './pages/Careers';
+import StyleKit from './pages/StyleKit';
 
 function App() {
+  const location = useLocation();
+  const isStyleKitRoute = location.pathname === '/style-kit';
+
   return (
     <div className="theme-bg theme-text min-h-screen selection:bg-accent selection:text-white relative">
       <div className="noise-overlay"></div>
-      <Navbar />
+      {!isStyleKitRoute && <Navbar />}
 
       <Routes>
         <Route path="/" element={<Home />} />
@@ -32,9 +36,10 @@ function App() {
         <Route path="/team" element={<Team />} />
         <Route path="/selling" element={<Selling />} />
         <Route path="/careers" element={<Careers />} />
+        <Route path="/style-kit" element={<StyleKit />} />
       </Routes>
 
-      <Footer />
+      {!isStyleKitRoute && <Footer />}
     </div>
   );
 }

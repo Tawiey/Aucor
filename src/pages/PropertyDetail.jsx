@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { MapPin, Calendar, CheckCircle2, ChevronLeft, ArrowRight } from 'lucide-react';
-import { dummyProperties, PROPERTY_IMAGE_FALLBACK } from '../data/properties';
+import { allProperties, PROPERTY_IMAGE_FALLBACK } from '../data/properties';
 
 export default function PropertyDetail() {
     const { id } = useParams();
@@ -11,7 +11,7 @@ export default function PropertyDetail() {
     useEffect(() => {
         window.scrollTo(0, 0);
         // Find property by ID in dummy data
-        const found = dummyProperties.find(p => p.id === id);
+        const found = allProperties.find(p => p.id === id);
         setProperty(found);
     }, [id]);
 

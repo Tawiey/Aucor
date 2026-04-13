@@ -44,11 +44,11 @@ export default function Hero() {
                 <div className="grid items-end gap-10 pb-6 pt-12 lg:grid-cols-[minmax(0,1.05fr)_minmax(24rem,0.95fr)] lg:gap-12 lg:pb-10 lg:pt-20">
                     <div className="max-w-3xl">
                         <h1 className="hero-reveal mt-7 font-sans text-[3.35rem] font-bold leading-[0.98] tracking-[-0.045em] text-ivory sm:text-[4.1rem] md:text-[5rem] xl:text-[5.8rem]">
-                            Find auction properties, fast.
+                            The team that delivers results.
                         </h1>
 
                         <p className="hero-reveal mt-6 max-w-xl text-base leading-relaxed text-ivory/70 md:text-lg">
-                            Browse verified residential, commercial, and industrial assets in Aucor&apos;s upcoming auctions.
+                            Auction-led property marketing for owners who need buyer confidence, speed, and sharper price discovery.
                         </p>
                     </div>
 

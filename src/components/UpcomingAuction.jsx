@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, Calendar, MapPin } from 'lucide-react';
 import AuctionCountdown from './AuctionCountdown';
+import ResourceButton from './ResourceButton';
 import {
     calculateAuctionTimeLeft,
     formatAuctionDateLong,
@@ -138,7 +139,7 @@ export default function UpcomingAuction() {
                             <ArrowRight size={15} className="transition-transform duration-300 group-hover:translate-x-0.5" />
                         </Link>
 
-                <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+                        <div className="mt-6 flex flex-col gap-3">
                             <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
                                 <Link
                                     to={auctionRoute}
@@ -151,13 +152,13 @@ export default function UpcomingAuction() {
                                     <span className="absolute inset-0 block translate-y-full bg-white/20 transition-transform duration-300 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] group-hover:translate-y-0" />
                                 </Link>
 
-                                <Link
-                                    to="/selling"
-                                    className="group inline-flex min-h-[3.35rem] items-center justify-center gap-2 rounded-[1.1rem] border border-white/10 bg-white/[0.035] px-5 py-3 text-sm font-medium text-white/68 transition-all duration-300 hover:border-white/18 hover:bg-white/[0.07] hover:text-white sm:min-w-[11.5rem]"
-                                >
-                                    <span>Sell your property</span>
-                                    <ArrowRight size={15} className="transition-transform duration-300 group-hover:translate-x-0.5" />
-                                </Link>
+                                <ResourceButton
+                                    label="Auction Magazine"
+                                    href={nextAuction.magazine?.href}
+                                    status={nextAuction.magazine?.status}
+                                    unavailableMessage={nextAuction.magazine?.unavailableMessage}
+                                    className="sm:min-w-[13rem]"
+                                />
                             </div>
                         </div>
                     </div>

@@ -23,9 +23,9 @@
   --input-focus: rgba(255, 255, 255, 0.1);
   --badge-bg: rgba(13, 13, 18, 0.8);
   --card-bg: rgba(255, 255, 255, 0.05);
-  --hero-glass-bg: rgba(13, 13, 18, 0.34);
-  --hero-glass-border: rgba(255, 255, 255, 0.14);
-  --hero-glass-shadow: 0 20px 45px rgba(5, 7, 12, 0.2);
+  --hero-glass-bg: rgba(13, 13, 18, 0.52);
+  --hero-glass-border: rgba(255, 255, 255, 0.16);
+  --hero-glass-shadow: 0 20px 45px rgba(5, 7, 12, 0.24);
 }
 
 [data-theme='light'] {
