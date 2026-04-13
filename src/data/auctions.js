@@ -5,7 +5,7 @@ import {
     differenceInSeconds,
     format
 } from 'date-fns';
-import { dummyProperties } from './properties';
+import { allProperties } from './properties';
 
 export const auctionCountdownUnits = [
     { key: 'days', label: 'Days', shortLabel: 'D' },
@@ -30,7 +30,12 @@ export const upcomingAuctions = [
         heroImage: '/istrfry-marcus-VLjIWo_Kmao-unsplash.jpg',
         registrationLabel: 'Pre-register to bid',
         registrationSummary: 'Pre-registration closes the evening before the event. FICA documentation and the refundable bidder deposit are required.',
-        propertyIds: ['P5846', 'P5841', 'P5809', 'P5808']
+        propertyIds: ['P5846', 'P5841', 'P5809', 'P5808'],
+        magazine: {
+            href: 'https://www.aucorproperty.co.za/auction-magazine',
+            status: 'coming_soon',
+            unavailableMessage: 'The auction magazine becomes available closer to the event.'
+        }
     },
     {
         id: 'AUC-MAY-2026',
@@ -47,7 +52,12 @@ export const upcomingAuctions = [
         heroImage: '/property-images/syed-ayan-malik-DI3MlpRdYeE-unsplash.jpg',
         registrationLabel: 'Pre-register to bid',
         registrationSummary: 'Submit bidder registration before the event to access the full pack, confirmations, and bidding protocols in advance.',
-        propertyIds: ['P5912', 'P5913']
+        propertyIds: ['P5912', 'P5913'],
+        magazine: {
+            href: '#',
+            status: 'coming_soon',
+            unavailableMessage: 'The auction magazine becomes available closer to the event.'
+        }
     },
     {
         id: 'AUC-JUN-2026',
@@ -64,7 +74,12 @@ export const upcomingAuctions = [
         heroImage: '/property-images/dj-steiner-DLpgvZWOnuU-unsplash.jpg',
         registrationLabel: 'Pre-register to bid',
         registrationSummary: 'Secure your bidder profile early to receive final property schedules, event instructions, and pre-auction updates.',
-        propertyIds: ['P5914', 'P5915']
+        propertyIds: ['P5914', 'P5915'],
+        magazine: {
+            href: '#',
+            status: 'coming_soon',
+            unavailableMessage: 'The auction magazine becomes available closer to the event.'
+        }
     },
     {
         id: 'AUC-JUL-2026',
@@ -81,7 +96,12 @@ export const upcomingAuctions = [
         heroImage: '/property-images/wrs-tm-pl-TCkIri6lxEo-unsplash.jpg',
         registrationLabel: 'Pre-register to bid',
         registrationSummary: 'Register in advance for bidder verification, event logistics, and access to supporting information packs.',
-        propertyIds: ['P5916']
+        propertyIds: ['P5916'],
+        magazine: {
+            href: '#',
+            status: 'coming_soon',
+            unavailableMessage: 'The auction magazine becomes available closer to the event.'
+        }
     },
     {
         id: 'AUC-AUG-2026',
@@ -98,7 +118,12 @@ export const upcomingAuctions = [
         heroImage: '/property-images/syed-ayan-malik-DI3MlpRdYeE-unsplash.jpg',
         registrationLabel: 'Pre-register to bid',
         registrationSummary: 'Complete bidder registration ahead of time to streamline check-in and gain early visibility on the event pack.',
-        propertyIds: ['P5917']
+        propertyIds: ['P5917'],
+        magazine: {
+            href: '#',
+            status: 'coming_soon',
+            unavailableMessage: 'The auction magazine becomes available closer to the event.'
+        }
     }
 ];
 
@@ -169,7 +194,7 @@ export function getAuctionProperties(auction) {
     }
 
     return auction.propertyIds
-        .map((propertyId) => dummyProperties.find((property) => property.id === propertyId))
+        .map((propertyId) => allProperties.find((property) => property.id === propertyId))
         .filter(Boolean);
 }
 

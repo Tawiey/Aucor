@@ -5,7 +5,7 @@ import { dummyProperties, PROPERTY_IMAGE_FALLBACK } from '../data/properties';
 import SearchBar from './SearchBar';
 
 export default function FeaturedProperties() {
-    const featured = dummyProperties.slice(0, 3);
+    const featured = dummyProperties.filter((property) => property.status === 'Upcoming').slice(0, 3);
 
     return (
         <section className="py-24 px-6 md:px-16 theme-bg border-b theme-border relative z-20">
