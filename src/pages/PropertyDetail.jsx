@@ -74,7 +74,7 @@ export default function PropertyDetail() {
                             <span className="font-sans font-medium text-lg">{property.price}</span>
                         </div>
                         <div className="flex flex-col gap-1">
-                            <span className="font-mono text-[10px] text-ivory/40 uppercase tracking-widest">Scale</span>
+                            <span className="font-mono text-[10px] text-ivory/40 uppercase tracking-widest">Size</span>
                             <span className="font-sans font-medium text-lg">{property.size}</span>
                         </div>
                         <div className="flex flex-col gap-1">
@@ -126,22 +126,29 @@ export default function PropertyDetail() {
                             <p className="text-sm theme-text-muted mb-8">Register your interest or request the full information pack for this asset.</p>
 
                             <form className="flex flex-col gap-4">
-                                <div className="relative group">
-                                    <input type="text" placeholder="Full Name" className="w-full bg-white/5 border border-white/10 border-b-white/30 rounded-t-xl h-12 px-4 text-sm outline-none focus:border-b-accent transition-colors peer" required />
-                                    <span className="absolute bottom-0 left-0 w-full h-[1px] bg-accent scale-x-0 peer-focus:scale-x-100 transition-transform origin-left" />
-                                </div>
-                                <div className="relative group">
-                                    <input type="email" placeholder="Email Address" className="w-full bg-white/5 border border-white/10 border-b-white/30 h-12 px-4 text-sm outline-none focus:border-b-accent transition-colors peer" required />
-                                    <span className="absolute bottom-0 left-0 w-full h-[1px] bg-accent scale-x-0 peer-focus:scale-x-100 transition-transform origin-left" />
-                                </div>
-                                <div className="relative group">
-                                    <input type="tel" placeholder="Cell Phone" className="w-full bg-white/5 border border-white/10 border-b-white/30 h-12 px-4 text-sm outline-none focus:border-b-accent transition-colors peer" />
-                                    <span className="absolute bottom-0 left-0 w-full h-[1px] bg-accent scale-x-0 peer-focus:scale-x-100 transition-transform origin-left" />
-                                </div>
-                                <div className="relative group mt-2">
-                                    <textarea placeholder="Message / Specific Questions" rows={4} className="w-full bg-white/5 border border-white/10 border-b-white/30 rounded-b-xl p-4 text-sm outline-none focus:border-b-accent transition-colors peer resize-none" defaultValue={`I am interested in REF: ${property.id}`} />
-                                    <span className="absolute bottom-0 left-0 w-full h-[1px] bg-accent scale-x-0 peer-focus:scale-x-100 transition-transform origin-left" />
-                                </div>
+                                <input
+                                    type="text"
+                                    placeholder="Full name"
+                                    className="h-11 w-full rounded-full border border-white/10 bg-white/[0.04] px-4 text-sm text-white outline-none transition-all duration-300 placeholder:text-white/28 hover:border-white/18 hover:bg-white/[0.06] focus:border-white/26 focus:bg-white/[0.08]"
+                                    required
+                                />
+                                <input
+                                    type="email"
+                                    placeholder="Email address"
+                                    className="h-11 w-full rounded-full border border-white/10 bg-white/[0.04] px-4 text-sm text-white outline-none transition-all duration-300 placeholder:text-white/28 hover:border-white/18 hover:bg-white/[0.06] focus:border-white/26 focus:bg-white/[0.08]"
+                                    required
+                                />
+                                <input
+                                    type="tel"
+                                    placeholder="Cell phone"
+                                    className="h-11 w-full rounded-full border border-white/10 bg-white/[0.04] px-4 text-sm text-white outline-none transition-all duration-300 placeholder:text-white/28 hover:border-white/18 hover:bg-white/[0.06] focus:border-white/26 focus:bg-white/[0.08]"
+                                />
+                                <textarea
+                                    placeholder="Message / specific questions"
+                                    rows={4}
+                                    className="w-full rounded-[1.5rem] border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-white outline-none transition-all duration-300 placeholder:text-white/28 hover:border-white/18 hover:bg-white/[0.06] focus:border-white/26 focus:bg-white/[0.08] resize-none"
+                                    defaultValue={`I am interested in REF: ${property.id}`}
+                                />
 
                                 <button type="submit" className="mt-4 relative overflow-hidden group bg-accent text-white px-6 py-4 rounded-xl font-medium w-full text-center">
                                     <span className="relative z-10 flex items-center justify-center gap-2">

@@ -17,12 +17,20 @@ import StyleKit from './pages/StyleKit';
 
 function App() {
   const location = useLocation();
-  const isStyleKitRoute = location.pathname === '/style-kit';
+  const isStyleKitRoute = location.pathname.startsWith('/style-kit');
+
+  if (isStyleKitRoute) {
+    return (
+      <Routes>
+        <Route path="/style-kit" element={<StyleKit />} />
+      </Routes>
+    );
+  }
 
   return (
     <div className="theme-bg theme-text min-h-screen selection:bg-accent selection:text-white relative">
       <div className="noise-overlay"></div>
-      {!isStyleKitRoute && <Navbar />}
+      <Navbar />
 
       <Routes>
         <Route path="/" element={<Home />} />
@@ -39,7 +47,7 @@ function App() {
         <Route path="/style-kit" element={<StyleKit />} />
       </Routes>
 
-      {!isStyleKitRoute && <Footer />}
+      <Footer />
     </div>
   );
 }

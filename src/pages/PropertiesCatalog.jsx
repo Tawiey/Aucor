@@ -129,7 +129,7 @@ export default function PropertiesCatalog() {
                                                 <span className="font-sans font-medium text-sm theme-text">{property.price}</span>
                                             </div>
                                             <div className="flex flex-col">
-                                                <span className="font-mono text-[10px] uppercase tracking-widest theme-text-subtle mb-1">Scale</span>
+                                                <span className="font-mono text-[10px] uppercase tracking-widest theme-text-subtle mb-1">Size</span>
                                                 <span className="flex items-center gap-1 font-sans font-medium text-sm theme-text">
                                                     <Maximize size={12} className="text-ivory/40" /> {property.size}
                                                 </span>
