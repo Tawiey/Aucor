@@ -272,3 +272,91 @@ export const dummyProperties = [
         }
     }
 ];
+
+export const soldProperties = [
+    {
+        id: "PS6101",
+        title: "Bedfordview - Corporate Office Campus",
+        location: "12 Riley Road, Bedfordview",
+        city: "Johannesburg",
+        suburb: "Bedfordview",
+        type: "Commercial",
+        price: "Sold",
+        size: "8 400m² GLA",
+        auctionDate: "18 Feb 2026",
+        status: "Sold",
+        image: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80",
+        description: "A multi-building office campus sold through auction to an owner-occupier seeking immediate scale, secure parking, and strong arterial access.",
+        features: [
+            "Three interlinked office buildings",
+            "Basement and open parking",
+            "Strong arterial access",
+            "Owner-occupier ready configuration"
+        ],
+        agent: {
+            name: "Michael Ross",
+            role: "Commercial Director",
+            phone: "082 555 1234",
+            email: "michael@aucor.com",
+            image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80"
+        }
+    },
+    {
+        id: "PS6102",
+        title: "Richards Bay - Logistics Warehouse",
+        location: "4 Alumina Drive, Richards Bay",
+        city: "Richards Bay",
+        suburb: "Alton",
+        type: "Industrial",
+        price: "Sold",
+        size: "6 900m²",
+        auctionDate: "21 Jan 2026",
+        status: "Sold",
+        image: "https://images.unsplash.com/photo-1512403754473-27835f7b9984?auto=format&fit=crop&w=1200&q=80",
+        description: "A high-clearance logistics warehouse sold to a regional operator seeking yard depth, circulation efficiency, and proximity to key freight routes.",
+        features: [
+            "Deep truck articulation yard",
+            "High-clearance warehouse space",
+            "Secure perimeter access",
+            "Regional logistics positioning"
+        ],
+        agent: {
+            name: "Chadd Drake",
+            role: "Business Development Manager",
+            phone: "083 289 3816",
+            email: "chadd@aucor.com",
+            image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80"
+        }
+    },
+    {
+        id: "PS6103",
+        title: "Randburg - Residential Investment Block",
+        location: "18 Jan Smuts Avenue, Randburg",
+        city: "Johannesburg",
+        suburb: "Randburg",
+        type: "Residential",
+        price: "Sold",
+        size: "24 Units",
+        auctionDate: "03 Dec 2025",
+        status: "Sold",
+        image: "https://images.unsplash.com/photo-1460317442991-0ec209397118?auto=format&fit=crop&w=1200&q=80",
+        description: "A fully let residential block sold through auction to an investor focused on defensive rental income and long-hold urban demand.",
+        features: [
+            "Fully let at time of sale",
+            "Established rental demand",
+            "Secure controlled access",
+            "Urban infill location"
+        ],
+        agent: {
+            name: "Sarah Jenkins",
+            role: "Residential Investment Specialist",
+            phone: "071 222 9876",
+            email: "sarah@aucor.com",
+            image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80"
+        }
+    }
+];
+
+export const allProperties = [...dummyProperties, ...soldProperties];
+
+export const featuredSoldProperties = soldProperties.slice(0, 3);

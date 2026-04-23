@@ -44,13 +44,13 @@ export default function SearchBar({ variant = 'hero' }) {
         ? 'rounded-[1.75rem] border border-white/16 bg-[linear-gradient(145deg,rgba(13,13,18,0.92),rgba(29,17,21,0.82))] px-4 py-3 shadow-[0_28px_80px_rgba(0,0,0,0.3)] ring-1 ring-accent/12 backdrop-blur-xl md:px-6 md:py-4'
         : 'rounded-[1.65rem] border border-white/10 bg-[linear-gradient(145deg,rgba(18,18,24,0.9),rgba(18,12,18,0.82))] px-4 py-3 shadow-[0_22px_60px_rgba(0,0,0,0.18)] backdrop-blur-md md:px-5 md:py-4';
     const inputClassName = isHero
-        ? 'h-12 w-full rounded-full border border-white/14 bg-white/[0.07] pl-12 pr-5 text-[15px] text-ivory outline-none transition-all duration-300 placeholder:text-ivory/36 hover:border-white/24 hover:bg-white/[0.09] focus:border-accent/45 focus:bg-white/[0.1] md:h-[3.25rem]'
-        : 'h-11 w-full rounded-full border border-white/12 bg-white/[0.045] pl-12 pr-5 text-sm text-ivory outline-none transition-all duration-300 placeholder:text-ivory/34 hover:border-white/22 hover:bg-white/[0.075] focus:border-accent/40 focus:bg-white/[0.085] md:h-12';
+        ? 'h-12 w-full rounded-full border border-white/14 bg-white/[0.07] pl-12 pr-5 text-[15px] text-ivory outline-none transition-all duration-300 placeholder:text-ivory/36 hover:border-white/22 hover:bg-white/[0.09] focus:border-white/28 focus:bg-white/[0.11] md:h-[3.25rem]'
+        : 'h-11 w-full rounded-full border border-white/10 bg-white/[0.04] pl-12 pr-5 text-sm text-ivory outline-none transition-all duration-300 placeholder:text-ivory/34 hover:border-white/18 hover:bg-white/[0.06] focus:border-white/28 focus:bg-white/[0.09] md:h-12';
     const selectClass = clsx(
         'w-full rounded-full border pl-10 pr-4 text-sm text-ivory/88 outline-none transition-all duration-300 appearance-none',
         isHero
-            ? 'h-10 border-white/12 bg-white/[0.05] hover:border-white/22 hover:bg-white/[0.07] focus:border-accent/40 focus:bg-white/[0.09]'
-            : 'h-10 border-white/10 bg-white/[0.04] hover:border-white/20 hover:bg-white/[0.065] focus:border-accent/38 focus:bg-white/[0.08]'
+            ? 'h-10 border-white/12 bg-white/[0.05] hover:border-white/20 hover:bg-white/[0.07] focus:border-white/24 focus:bg-white/[0.09]'
+            : 'h-10 border-white/10 bg-white/[0.04] hover:border-white/18 hover:bg-white/[0.06] focus:border-white/22 focus:bg-white/[0.08]'
     );
     const filterButtonClassName = isHero
         ? 'inline-flex h-10 items-center gap-2 rounded-full border border-white/14 bg-white/[0.06] px-4 text-[11px] font-medium uppercase tracking-[0.2em] text-ivory/76 transition-all duration-300 hover:border-white/24 hover:bg-white/[0.1]'

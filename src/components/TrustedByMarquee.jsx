@@ -4,7 +4,7 @@ const duplicatedLogos = [...clientLogos, ...clientLogos];
 
 export default function TrustedByMarquee() {
     return (
-        <div className="hero-reveal relative left-1/2 mt-14 w-screen -translate-x-1/2 pt-10 md:mt-16 md:pt-12">
+        <div className="hero-reveal relative left-1/2 mt-8 w-screen -translate-x-1/2 pt-4 md:mt-10 md:pt-6">
             <div className="flex flex-col items-center text-center">
                 <span className="text-sm font-semibold uppercase tracking-[0.28em] text-white/58 md:text-[15px]">
                     Trusted by

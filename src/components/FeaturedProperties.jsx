@@ -5,7 +5,7 @@ import { dummyProperties, PROPERTY_IMAGE_FALLBACK } from '../data/properties';
 import SearchBar from './SearchBar';
 
 export default function FeaturedProperties() {
-    const featured = dummyProperties.slice(0, 3);
+    const featured = dummyProperties.filter((property) => property.status === 'Upcoming').slice(0, 3);
 
     return (
         <section className="py-24 px-6 md:px-16 theme-bg border-b theme-border relative z-20">
@@ -90,7 +90,7 @@ export default function FeaturedProperties() {
                                         <span className="font-sans font-medium text-sm theme-text">{property.price}</span>
                                     </div>
                                     <div className="flex flex-col">
-                                        <span className="font-mono text-[10px] uppercase tracking-widest text-ivory/56 mb-1">Scale</span>
+                                        <span className="font-mono text-[10px] uppercase tracking-widest text-ivory/56 mb-1">Size</span>
                                         <span className="flex items-center gap-1 font-sans font-medium text-sm theme-text">
                                             <Maximize size={12} className="theme-text-subtle" /> {property.size}
                                         </span>

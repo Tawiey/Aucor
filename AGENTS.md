@@ -54,6 +54,11 @@ Primary routes:
 - `/auctions/:slug` -> dedicated auction detail
 - `/properties` -> catalog
 - `/properties/:id` -> property detail
+- `/style-kit` -> internal developer-facing component reference
+
+Deployment note:
+
+- Vercel requires the SPA rewrite in [`vercel.json`](/Users/tawandamutambwe/Documents/Antigravity/Aucor/vercel.json) so direct requests to client-side routes like `/style-kit`, `/auctions/:slug`, and `/properties/:id` resolve to the app instead of returning `404 NOT_FOUND`.
 
 Home page composition:
 
@@ -83,6 +88,7 @@ Home page composition:
   - hero search UI
   - sends query params to `/properties`
   - spacing and shell treatment were recently normalized to better match the navbar
+  - neutral rest border + white focus state is the current shared input direction
 
 - [`src/components/UpcomingAuction.jsx`](/Users/tawandamutambwe/Documents/Antigravity/Aucor/src/components/UpcomingAuction.jsx)
   - auction countdown / promo card
@@ -124,6 +130,11 @@ Home page composition:
   - footer links and closing brand area
   - top seam with FAQ was recently adjusted
 
+- [`src/pages/StyleKit.jsx`](/Users/tawandamutambwe/Documents/Antigravity/Aucor/src/pages/StyleKit.jsx)
+  - hidden internal style guide at `/style-kit`
+  - developer-facing reference for tokens, production components, and proposed patterns
+  - should read like a component library, not like a copied landing page
+
 ## Visual / UX Direction
 
 When editing this project, preserve these principles:
@@ -148,7 +159,7 @@ These are the conventions future agents should preserve unless explicitly asked 
 ### Branding
 
 - Favicon should use `public/favicon-32x32.png`.
-- The top nav logo should use `public/logo-white.png`.
+- The top nav logo should use `public/logo-new-white.svg`.
 
 ### CTA Copy
 
@@ -173,11 +184,14 @@ These are the conventions future agents should preserve unless explicitly asked 
 - The search bar should feel prominent, but not oversized.
 - Input and button heights should feel refined rather than bulky.
 - Outer shell padding and internal gaps should align with the navbar rhythm.
+- Shared input behavior should rest on a faint neutral border and shift to a clearer white focus state.
+- Avoid reintroducing red underline / red focus treatments for standard fields unless explicitly requested.
 
 ### Featured / Highlight Cards
 
 - Card hover theatrics should be limited.
 - If hover is used, prioritize it on buttons rather than the entire card/image/title.
+- Prefer the label `Size`, not `Scale`, for property-size metadata.
 
 ### Auctions
 
@@ -201,6 +215,42 @@ These are the conventions future agents should preserve unless explicitly asked 
 - Testimonial cards should keep consistent width/height and read clearly at a compact size.
 - The second testimonial column should stay half a card offset for readability.
 - Trusted-by logos should span the available width, move slowly, and avoid outlined logo capsules.
+- In `/style-kit`, the trusted-by preview should read as a moving horizontal brand lane, not a boxed logo grid.
+
+### Style Kit
+
+- `/style-kit` is intentionally internal; do not link to it in the public navbar or footer.
+- Treat production components as canonical and label any inferred patterns as `Proposed`.
+- Do not document local mocks as if they already exist in the site.
+- Use generic placeholder content in the style kit so components read as examples, not duplicated marketing sections.
+- Prefer one representative example per component variant rather than replaying whole live sections.
+- Background treatments are now documented under a dedicated `Background Recipes` section in `/style-kit`.
+- Background recipes should expose:
+  - a named reusable recipe
+  - exact production usage
+  - copyable raw CSS
+  - copyable production/Tailwind implementation
+- Shared decorative recipe utilities now live in [`src/index.css`](/Users/tawandamutambwe/Documents/Antigravity/Aucor/src/index.css) as `bg-recipe-*` classes so the style kit can document exact production patterns without repeating arbitrary gradient strings everywhere.
+- For large background recipe sets, prefer the horizontal recipe selector/carousel pattern over a tall grid so the active recipe and the detail tabs stay visually connected.
+- In the recipe selector, card headers must stay top-aligned with a fixed header zone, previews centered, and `Used in` content anchored to the bottom to avoid cards shifting vertically based on preview content.
+- The current style-kit inventory should cover:
+  - actions
+  - background recipes and decorative motifs
+  - navbar / dropdown states
+  - typography tokens
+  - countdown and auction fact patterns
+  - property / sold / stat card families
+  - search + standalone field direction
+  - testimonial and trusted-by proof patterns
+  - FAQ accordion and proposed pagination
+
+### Property Detail Inquiry Form
+
+- The `Make an Enquiry` form now follows the newer rounded-field treatment:
+  - faint neutral border at rest
+  - subtle white lift on focus
+  - rounded pill inputs
+  - softer rounded textarea shell
 
 ### Philosophy Section
 

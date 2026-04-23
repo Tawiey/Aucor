@@ -99,8 +99,10 @@ export default function Navbar() {
         <>
             <nav
                 className={clsx(
-                    'fixed top-6 left-1/2 -translate-x-1/2 z-50 rounded-[3rem] px-4 py-3 md:px-6 md:py-4 flex items-center justify-between w-[92%] md:w-[94%] max-w-6xl md:max-w-7xl border transition-all duration-500',
-                    isFloatingHome ? 'hero-glass shadow-lg shadow-black/10' : 'glass shadow-xl'
+                    'fixed top-6 left-1/2 -translate-x-1/2 z-50 rounded-[3rem] px-4 py-3 md:px-6 md:py-4 flex items-center justify-between w-[92%] border transition-all duration-500',
+                    isFloatingHome
+                        ? 'hero-glass shadow-lg shadow-black/10 md:w-[94%] max-w-6xl md:max-w-7xl'
+                        : 'glass shadow-xl md:w-[94%] max-w-6xl md:max-w-7xl'
                 )}
             >
                 <div className="flex items-center gap-3 md:hidden">
@@ -116,7 +118,7 @@ export default function Navbar() {
 
                     <Link to="/" className="flex items-center gap-2">
                         <img
-                            src="/logo-white.png"
+                            src="/logo-new-white.svg"
                             alt="Aucor Properties"
                             className={clsx(
                                 'h-8 w-auto transition-all duration-400',
@@ -141,10 +143,10 @@ export default function Navbar() {
 
                 <Link to="/" className="hidden md:flex items-center gap-2">
                     <img
-                        src="/logo-white.png"
+                        src="/logo-new-white.svg"
                         alt="Aucor Properties"
                         className={clsx(
-                            'h-8 w-auto transition-all duration-400 md:h-9',
+                            'h-8 w-auto transition-all duration-400 md:h-11 lg:h-[3rem]',
                             isFloatingHome ? 'opacity-100 drop-shadow-[0_2px_18px_rgba(0,0,0,0.28)]' : 'opacity-95'
                         )}
                     />
@@ -261,7 +263,7 @@ export default function Navbar() {
                             <div className="relative z-10 mb-5 flex items-center justify-between">
                                 <Link to="/" className="flex items-center gap-2" onClick={() => setIsMenuOpen(false)}>
                                     <img
-                                        src="/logo-white.png"
+                                        src="/logo-new-white.svg"
                                         alt="Aucor Properties"
                                         className="h-8 w-auto opacity-95"
                                     />

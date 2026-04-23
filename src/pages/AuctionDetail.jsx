@@ -4,6 +4,7 @@ import { ArrowRight, Calendar, ChevronLeft, MapPin } from 'lucide-react';
 import AuctionCountdown from '../components/AuctionCountdown';
 import AuctionProcessSummary from '../components/AuctionProcessSummary';
 import AuctionPropertyCard from '../components/AuctionPropertyCard';
+import ResourceButton from '../components/ResourceButton';
 import {
     calculateAuctionTimeLeft,
     formatAuctionDateLong,
@@ -167,6 +168,14 @@ export default function AuctionDetail() {
                                 <ChevronLeft size={16} className="transition-transform duration-300 group-hover:-translate-x-0.5" />
                                 View auctions
                             </Link>
+
+                            <ResourceButton
+                                label="Auction Magazine"
+                                href={auction.magazine?.href}
+                                status={auction.magazine?.status}
+                                unavailableMessage={auction.magazine?.unavailableMessage}
+                                fullWidth
+                            />
                         </div>
                     </div>
                 </section>

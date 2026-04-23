@@ -53,7 +53,7 @@ export default function AuctionPropertyCard({ property, auction, index = 0 }) {
                         <span className="text-sm font-medium theme-text">{property.price}</span>
                     </div>
                     <div className="flex flex-col">
-                        <span className="font-mono text-[10px] uppercase tracking-widest text-ivory/56 mb-1">Scale</span>
+                        <span className="font-mono text-[10px] uppercase tracking-widest text-ivory/56 mb-1">Size</span>
                         <span className="flex items-center gap-1 text-sm font-medium theme-text">
                             <Maximize size={12} className="theme-text-subtle" /> {property.size}
                         </span>
