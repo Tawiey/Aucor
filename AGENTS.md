@@ -56,6 +56,10 @@ Primary routes:
 - `/properties/:id` -> property detail
 - `/style-kit` -> internal developer-facing component reference
 
+Deployment note:
+
+- Vercel requires the SPA rewrite in [`vercel.json`](/Users/tawandamutambwe/Documents/Antigravity/Aucor/vercel.json) so direct requests to client-side routes like `/style-kit`, `/auctions/:slug`, and `/properties/:id` resolve to the app instead of returning `404 NOT_FOUND`.
+
 Home page composition:
 
 - [`src/pages/Home.jsx`](/Users/tawandamutambwe/Documents/Antigravity/Aucor/src/pages/Home.jsx)
@@ -220,8 +224,18 @@ These are the conventions future agents should preserve unless explicitly asked 
 - Do not document local mocks as if they already exist in the site.
 - Use generic placeholder content in the style kit so components read as examples, not duplicated marketing sections.
 - Prefer one representative example per component variant rather than replaying whole live sections.
+- Background treatments are now documented under a dedicated `Background Recipes` section in `/style-kit`.
+- Background recipes should expose:
+  - a named reusable recipe
+  - exact production usage
+  - copyable raw CSS
+  - copyable production/Tailwind implementation
+- Shared decorative recipe utilities now live in [`src/index.css`](/Users/tawandamutambwe/Documents/Antigravity/Aucor/src/index.css) as `bg-recipe-*` classes so the style kit can document exact production patterns without repeating arbitrary gradient strings everywhere.
+- For large background recipe sets, prefer the horizontal recipe selector/carousel pattern over a tall grid so the active recipe and the detail tabs stay visually connected.
+- In the recipe selector, card headers must stay top-aligned with a fixed header zone, previews centered, and `Used in` content anchored to the bottom to avoid cards shifting vertically based on preview content.
 - The current style-kit inventory should cover:
   - actions
+  - background recipes and decorative motifs
   - navbar / dropdown states
   - typography tokens
   - countdown and auction fact patterns

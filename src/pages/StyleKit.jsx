@@ -1,4 +1,4 @@
-import { useLayoutEffect, useState } from 'react';
+import { useLayoutEffect, useRef, useState } from 'react';
 import {
     ArrowRight,
     Calendar,
@@ -23,6 +23,7 @@ import { primaryNavItems, moreNavItems } from '../data/navigation';
 
 const navigation = [
     { id: 'foundations', label: 'Foundations' },
+    { id: 'background-recipes', label: 'Background Recipes' },
     { id: 'actions', label: 'Actions' },
     { id: 'navigation', label: 'Navigation' },
     { id: 'typography', label: 'Typography' },
@@ -133,6 +134,413 @@ const foundationRows = [
     ['Common radius', '12px / 16px / 28px depending on control size'],
     ['Surface pattern', 'dark translucent surfaces with soft blur and low-noise borders'],
     ['Shadow language', 'large soft black shadows, restrained accent glow']
+];
+
+const visualTokenRows = [
+    ['Accent red glow', 'rgba(230,46,45,0.12 -> 0.20) with 42px -> 48px blur'],
+    ['White edge seam', 'linear-gradient(to right, transparent, rgba(255,255,255,0.18), transparent)'],
+    ['Dark glass base', 'linear-gradient(145deg, rgba(13,13,18,0.92), rgba(29,17,21,0.82))'],
+    ['Frosted fill', 'rgba(255,255,255,0.028 -> 0.07) layered over dark surfaces'],
+    ['Soft radial highlight', 'radial-gradient(circle at top right, rgba(230,46,45,0.10 -> 0.12), transparent 30% -> 44%)'],
+    ['Border alpha', 'rgba(255,255,255,0.07 -> 0.18)'],
+    ['Heavy shadow', '0 28px 80px rgba(0,0,0,0.28)'],
+    ['Card shadow', '0 18px 42px rgba(0,0,0,0.14)']
+];
+
+const backgroundRecipes = [
+    {
+        id: 'auction-surface',
+        title: 'Auction Surface',
+        status: 'Production',
+        description: 'Dark glass event surface used for the homepage auction card and related auction-promotional shells.',
+        usedIn: ['UpcomingAuction homepage card', 'auction promo surfaces', 'style-kit event preview'],
+        usage: 'Use this when the surface itself is the event container. Keep the base shell dark, blurred, and slightly red-biased so countdowns and metadata sit cleanly above it.',
+        notes: [
+            'This is a layered recipe: base shell + radial overlay + top seam.',
+            'Use the seam only when the surface needs a stronger top edge.',
+            'Keep the card content positioned above the overlay layers with relative z-index.'
+        ],
+        tokens: [
+            {
+                title: 'Layers',
+                rows: [
+                    ['Base shell', 'bg-recipe-auction-surface'],
+                    ['Overlay', 'bg-recipe-auction-overlay'],
+                    ['Seam', 'bg-recipe-top-seam']
+                ]
+            },
+            {
+                title: 'Core values',
+                rows: [
+                    ['Gradient', '150deg, rgba(12,12,18,0.9) -> rgba(27,15,18,0.78)'],
+                    ['Accent tint', 'rgba(230,46,45,0.12)'],
+                    ['Shadow', '0 28px 80px rgba(0,0,0,0.28)'],
+                    ['Blur', '24px backdrop blur']
+                ]
+            }
+        ],
+        rawCss: `.auction-surface {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: 2rem;
+  background: linear-gradient(150deg, rgba(12, 12, 18, 0.9), rgba(27, 15, 18, 0.78));
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(24px);
+}
+
+.auction-surface::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top right, rgba(230, 46, 45, 0.12) 0%, transparent 44%);
+}
+
+.auction-surface::after {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.18), transparent);
+}`,
+        productionCode: `<div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-recipe-auction-surface p-5 shadow-[0_28px_80px_rgba(0,0,0,0.28)] backdrop-blur-xl">
+  <div className="absolute inset-0 bg-recipe-auction-overlay" />
+  <div className="absolute inset-x-0 top-0 h-px bg-recipe-top-seam" />
+  <div className="relative z-10">{/* card content */}</div>
+</div>`
+    },
+    {
+        id: 'stat-card-surface',
+        title: 'Stat Card Surface',
+        status: 'Production',
+        description: 'Heavy dark stat-card shell with radial highlights, faint grid, and accent glow.',
+        usedIn: ['Features / Engineered for Results hero stat', 'support stat cards'],
+        usage: 'Use this for premium results or proof metrics where the surface should feel technical and high-value without becoming noisy.',
+        notes: [
+            'The grid is intentionally very faint.',
+            'Use the accent glow as a background element, not a focal object.',
+            'Support cards can omit the grid and one glow if the card is smaller.'
+        ],
+        tokens: [
+            {
+                title: 'Layers',
+                rows: [
+                    ['Base shell', 'bg-recipe-stat-surface'],
+                    ['Radial overlay', 'bg-recipe-stat-overlay'],
+                    ['Grid texture', 'bg-recipe-stat-grid'],
+                    ['Accent glow', 'bg-recipe-accent-glow']
+                ]
+            },
+            {
+                title: 'Core values',
+                rows: [
+                    ['Gradient', '155deg, rgba(26,25,31,0.98) -> rgba(13,13,18,0.96)'],
+                    ['Grid size', '36px x 36px'],
+                    ['Grid opacity', '0.05'],
+                    ['Shadow', '0 30px 90px rgba(0,0,0,0.34)']
+                ]
+            }
+        ],
+        rawCss: `.stat-card-surface {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 2.4rem;
+  background: linear-gradient(155deg, rgba(26, 25, 31, 0.98), rgba(13, 13, 18, 0.96));
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.34);
+}
+
+.stat-card-surface__overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at top left, rgba(255, 255, 255, 0.07), transparent 30%),
+    radial-gradient(circle at bottom right, rgba(230, 46, 45, 0.12), transparent 34%);
+}
+
+.stat-card-surface__grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.55) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.4) 1px, transparent 1px);
+  background-size: 36px 36px;
+  opacity: 0.05;
+}`,
+        productionCode: `<article className="relative overflow-hidden rounded-[2.4rem] border border-white/8 bg-recipe-stat-surface shadow-[0_30px_90px_rgba(0,0,0,0.34)]">
+  <div className="pointer-events-none absolute inset-0 bg-recipe-stat-overlay" />
+  <div className="pointer-events-none absolute inset-0 bg-recipe-stat-grid" />
+  <div className="absolute bottom-0 left-10 h-24 w-24 rounded-full bg-recipe-accent-glow" />
+  <div className="relative z-10">{/* stat content */}</div>
+</article>`
+    },
+    {
+        id: 'testimonial-surface',
+        title: 'Testimonial Surface',
+        status: 'Production',
+        description: 'Frosted dark testimonial card with soft radial accent and quiet top lighting.',
+        usedIn: ['Testimonials cards', 'style-kit testimonial preview'],
+        usage: 'Use for compact proof cards where the quote remains the dominant content. The surface should support readability first.',
+        notes: [
+            'Keep the overlay subtle so the quote remains legible.',
+            'This recipe pairs with the avatar medallion rather than trying to carry all of the brand motif itself.'
+        ],
+        tokens: [
+            {
+                title: 'Layers',
+                rows: [
+                    ['Base shell', 'bg-recipe-testimonial-surface'],
+                    ['Overlay', 'bg-recipe-testimonial-overlay']
+                ]
+            },
+            {
+                title: 'Core values',
+                rows: [
+                    ['Gradient', '145deg, rgba(255,255,255,0.028) -> rgba(255,255,255,0.012)'],
+                    ['Accent tint', 'rgba(230,46,45,0.12)'],
+                    ['Blur', '12px backdrop blur'],
+                    ['Shadow', '0 18px 42px rgba(0,0,0,0.14)']
+                ]
+            }
+        ],
+        rawCss: `.testimonial-surface {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 1.65rem;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.028), rgba(255, 255, 255, 0.012));
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.14);
+  backdrop-filter: blur(12px);
+}
+
+.testimonial-surface__overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at top right, rgba(230, 46, 45, 0.12), transparent 30%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.022), transparent 38%);
+}`,
+        productionCode: `<article className="relative overflow-hidden rounded-[1.65rem] border border-white/7 bg-recipe-testimonial-surface p-4 shadow-[0_18px_42px_rgba(0,0,0,0.14)] backdrop-blur-sm">
+  <div className="pointer-events-none absolute inset-0 bg-recipe-testimonial-overlay" />
+  <div className="relative z-10">{/* testimonial content */}</div>
+</article>`
+    },
+    {
+        id: 'sold-surface',
+        title: 'Sold Surface',
+        status: 'Production',
+        description: 'Calmer translucent sold-state surface plus the stronger sold-section shell seam and radial highlight.',
+        usedIn: ['FeaturedSoldProperties section shell', 'SoldPropertyCard'],
+        usage: 'Use this family for sold-state cards and surrounding sold-property shells. Keep the treatment simpler than live auction cards.',
+        notes: [
+            'The section shell uses the top seam and radial highlight.',
+            'The sold property card itself is flatter and quieter than the section shell.',
+            'Treat the sold badge separately as a status marker, not as part of the shell recipe.'
+        ],
+        tokens: [
+            {
+                title: 'Section shell',
+                rows: [
+                    ['Overlay', 'bg-recipe-auction-overlay'],
+                    ['Seam', 'bg-recipe-top-seam'],
+                    ['Base fill', 'theme-surface-2']
+                ]
+            },
+            {
+                title: 'Card surface',
+                rows: [
+                    ['Base shell', 'bg-recipe-sold-surface'],
+                    ['Fill', 'rgba(255,255,255,0.04)'],
+                    ['Blur', '12px'],
+                    ['Shadow', '0 24px 60px rgba(0,0,0,0.16)']
+                ]
+            }
+        ],
+        rawCss: `.sold-surface {
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: 1.85rem;
+  background: rgba(255, 255, 255, 0.04);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.16);
+  backdrop-filter: blur(12px);
+}`,
+        productionCode: `<div className="relative overflow-hidden rounded-[2.6rem] border theme-border theme-surface-2 px-6 py-8 shadow-[0_28px_80px_rgba(0,0,0,0.22)]">
+  <div className="absolute inset-0 bg-recipe-auction-overlay" />
+  <div className="absolute inset-x-0 top-0 h-px bg-recipe-top-seam" />
+</div>
+
+<article className="flex h-full flex-col overflow-hidden rounded-[1.85rem] border border-white/10 bg-recipe-sold-surface shadow-[0_24px_60px_rgba(0,0,0,0.16)] backdrop-blur-sm" />`
+    },
+    {
+        id: 'cta-surface',
+        title: 'CTA Surface',
+        status: 'Production',
+        description: 'Red-led CTA language for pre-register and related high-priority action blocks.',
+        usedIn: ['GetStarted section glow and CTA', 'UpcomingAuction pre-register button', 'CTA overlays'],
+        usage: 'Use this family for the site’s dominant conversion action. Keep the surface crisp and the white overlay rise restrained.',
+        notes: [
+            'This is more than button color; it includes the overlay rise and glow language.',
+            'Use for primary auction actions only, not generic secondary controls.'
+        ],
+        tokens: [
+            {
+                title: 'Button treatment',
+                rows: [
+                    ['Base fill', '#E62E2D'],
+                    ['Overlay', 'rgba(255,255,255,0.20)'],
+                    ['Shadow', '0 18px 32px rgba(230,46,45,0.20)'],
+                    ['Motion', 'overlay rises on hover']
+                ]
+            },
+            {
+                title: 'Ambient treatment',
+                rows: [
+                    ['Glow', 'bg-recipe-accent-glow'],
+                    ['Shell bias', 'dark base with red tint when placed on dark surface']
+                ]
+            }
+        ],
+        rawCss: `.cta-surface {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1.1rem;
+  background: #E62E2D;
+  color: #fff;
+  box-shadow: 0 18px 32px rgba(230, 46, 45, 0.2);
+}
+
+.cta-surface__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(100%);
+  transition: transform 300ms cubic-bezier(0.25,0.46,0.45,0.94);
+}
+
+.cta-surface:hover .cta-surface__overlay {
+  transform: translateY(0);
+}`,
+        productionCode: `<button className="group relative inline-flex min-h-[3.35rem] items-center justify-center overflow-hidden rounded-[1.1rem] bg-accent px-5 py-3 text-sm font-semibold text-white shadow-[0_18px_32px_rgba(230,46,45,0.2)]">
+  <span className="relative z-10">Pre-register to bid</span>
+  <span className="absolute inset-0 block bg-white/20 translate-y-full transition-transform duration-300 group-hover:translate-y-0" />
+</button>`
+    },
+    {
+        id: 'avatar-medallion',
+        title: 'Avatar Medallion',
+        status: 'Production',
+        description: 'Circular frosted medallion for initials and compact identity markers.',
+        usedIn: ['Testimonials avatar', 'proof patterns'],
+        usage: 'Use this as the identity lockup inside proof cards or compact attribution surfaces. Keep the letterform secondary to the quote or content.',
+        notes: [
+            'The medallion is a layered shell plus a radial red highlight.',
+            'This is the cleanest place to expose the brand monogram treatment.'
+        ],
+        tokens: [
+            {
+                title: 'Layers',
+                rows: [
+                    ['Base shell', 'bg-recipe-avatar-medallion'],
+                    ['Overlay', 'bg-recipe-avatar-overlay'],
+                    ['Monogram', 'bg-recipe-monogram']
+                ]
+            },
+            {
+                title: 'Core values',
+                rows: [
+                    ['Size', '40px x 40px'],
+                    ['Border', 'rgba(255,255,255,0.10)'],
+                    ['Gradient', '145deg, rgba(255,255,255,0.07) -> rgba(255,255,255,0.02)'],
+                    ['Accent tint', 'rgba(230,46,45,0.16)']
+                ]
+            }
+        ],
+        rawCss: `.avatar-medallion {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: 9999px;
+  background: linear-gradient(145deg, rgba(255,255,255,0.07), rgba(255,255,255,0.02));
+}
+
+.avatar-medallion::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top, rgba(230,46,45,0.16), transparent 58%);
+}`,
+        productionCode: `<div className="relative flex h-10 w-10 items-center justify-center overflow-hidden rounded-full border border-white/10 bg-recipe-avatar-medallion text-xs font-semibold tracking-[0.08em] text-white/90">
+  <span className="pointer-events-none absolute inset-0 bg-recipe-avatar-overlay" />
+  <span className="relative z-10">U</span>
+</div>`
+    },
+    {
+        id: 'protocol-guidance-overlay',
+        title: 'Protocol Guidance Overlay',
+        status: 'Production-specific',
+        description: 'Layered guidance motif for process visuals: scan line, strips, and darkened technical paneling.',
+        usedIn: ['Protocol registration panel', 'auction guidance overlays'],
+        usage: 'Use this only for process or guidance visuals that need a technical annotation feel. This is a production-specific layered motif, not a generic card background.',
+        notes: [
+            'Document as layered markup plus CSS rather than a single class.',
+            'Keep the motion subtle and low-frequency.',
+            'The scan line uses the shared scanY keyframe from index.css.'
+        ],
+        tokens: [
+            {
+                title: 'Layers',
+                rows: [
+                    ['Base overlay', 'bg-recipe-protocol-overlay'],
+                    ['Scan line', 'bg-recipe-protocol-scan + animate-[scanY_4.2s_ease-in-out_infinite]'],
+                    ['Guidance strips', 'bg-recipe-protocol-strip']
+                ]
+            },
+            {
+                title: 'Core values',
+                rows: [
+                    ['Top white wash', 'rgba(255,255,255,0.04)'],
+                    ['Accent tint', 'rgba(230,46,45,0.10)'],
+                    ['Strip fill', 'rgba(0,0,0,0.20)'],
+                    ['Strip blur', '10px']
+                ]
+            }
+        ],
+        rawCss: `.protocol-guidance {
+  position: absolute;
+  inset: 0;
+}
+
+.protocol-guidance__overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.04), transparent 45%),
+    radial-gradient(circle at bottom right, rgba(230,46,45,0.10), transparent 28%);
+}
+
+.protocol-guidance__scan {
+  position: absolute;
+  left: 12%;
+  top: 16%;
+  width: 76%;
+  height: 2px;
+  background: rgba(230,46,45,0.70);
+  filter: blur(0.5px);
+  animation: scanY 4.2s ease-in-out infinite;
+}`,
+        productionCode: `<div className="pointer-events-none absolute inset-0">
+  <div className="absolute inset-0 bg-recipe-protocol-overlay" />
+  <div className="absolute left-[12%] top-[16%] h-[2px] w-[76%] bg-recipe-protocol-scan animate-[scanY_4.2s_ease-in-out_infinite]" />
+  <div className="absolute bottom-[18%] left-[10%] right-[10%] grid gap-3">
+    {[0, 1, 2].map((line) => (
+      <div key={line} className="flex items-center gap-3 rounded-full border border-white/10 bg-recipe-protocol-strip px-4 py-3" />
+    ))}
+  </div>
+</div>`
+    }
 ];
 
 const sectionClasses = {
@@ -377,16 +785,290 @@ function SpecPanel({ groups }) {
     );
 }
 
-function CodePanel({ code }) {
+function CodePanel({ code, title = 'Classes / implementation' }) {
     return (
         <div className="overflow-hidden rounded-2xl border border-white/10 bg-[#05060a] shadow-[0_18px_45px_rgba(0,0,0,0.32)]">
             <div className="border-b border-white/10 px-4 py-3">
-                <h3 className="text-sm font-semibold text-white">Classes / implementation</h3>
+                <h3 className="text-sm font-semibold text-white">{title}</h3>
             </div>
             <pre className="overflow-x-auto px-4 py-4 text-xs leading-6 text-slate-300">
                 <code>{code}</code>
             </pre>
         </div>
+    );
+}
+
+function BackgroundRecipePreview({ recipe }) {
+    if (recipe.id === 'auction-surface') {
+        return (
+            <div className="relative overflow-hidden rounded-[1.5rem] border border-white/10 bg-recipe-auction-surface p-4">
+                <div className="absolute inset-0 bg-recipe-auction-overlay" />
+                <div className="absolute inset-x-0 top-0 h-px bg-recipe-top-seam" />
+                <div className="relative z-10">
+                    <div className="inline-flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.22em] text-white/58">
+                        <span className="h-2 w-2 rounded-full bg-accent" />
+                        Event surface
+                    </div>
+                    <div className="mt-3 h-5 w-40 rounded bg-white/10" />
+                    <div className="mt-6 grid grid-cols-4 gap-2">
+                        {Array.from({ length: 4 }).map((_, index) => (
+                            <div key={index} className="h-14 rounded-[0.9rem] border border-white/10 bg-white/[0.04]" />
+                        ))}
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+    if (recipe.id === 'stat-card-surface') {
+        return (
+            <div className="relative overflow-hidden rounded-[1.75rem] border border-white/8 bg-recipe-stat-surface p-5">
+                <div className="absolute inset-0 bg-recipe-stat-overlay" />
+                <div className="absolute inset-0 bg-recipe-stat-grid" />
+                <div className="absolute bottom-0 left-6 h-20 w-20 rounded-full bg-recipe-accent-glow" />
+                <div className="relative z-10">
+                    <div className="h-3 w-24 rounded-full bg-white/12" />
+                    <div className="mt-6 h-12 w-32 rounded bg-white/10" />
+                    <div className="mt-3 h-4 w-40 rounded bg-white/8" />
+                </div>
+            </div>
+        );
+    }
+
+    if (recipe.id === 'testimonial-surface') {
+        return (
+            <div className="relative overflow-hidden rounded-[1.5rem] border border-white/7 bg-recipe-testimonial-surface p-4">
+                <div className="absolute inset-0 bg-recipe-testimonial-overlay" />
+                <div className="relative z-10">
+                    <div className="h-3 w-24 rounded-full bg-accent/30" />
+                    <div className="mt-4 space-y-2">
+                        <div className="h-3 rounded bg-white/10" />
+                        <div className="h-3 rounded bg-white/10" />
+                        <div className="h-3 w-4/5 rounded bg-white/10" />
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+    if (recipe.id === 'sold-surface') {
+        return (
+            <div className="space-y-3">
+                <div className="relative overflow-hidden rounded-[1.4rem] border border-white/10 theme-surface-2 p-4">
+                    <div className="absolute inset-0 bg-recipe-auction-overlay" />
+                    <div className="absolute inset-x-0 top-0 h-px bg-recipe-top-seam" />
+                    <div className="relative z-10 h-4 w-28 rounded bg-white/10" />
+                </div>
+                <div className="overflow-hidden rounded-[1.4rem] border border-white/10 bg-recipe-sold-surface p-4">
+                    <div className="h-3 w-32 rounded bg-white/10" />
+                    <div className="mt-4 h-20 rounded-[1rem] bg-white/[0.05]" />
+                </div>
+            </div>
+        );
+    }
+
+    if (recipe.id === 'cta-surface') {
+        return (
+            <div className="flex items-center gap-4">
+                <button type="button" className="group relative inline-flex min-h-[3.2rem] items-center justify-center overflow-hidden rounded-[1.1rem] bg-accent px-5 py-3 text-sm font-semibold text-white shadow-[0_18px_32px_rgba(230,46,45,0.2)]">
+                    <span className="relative z-10">Primary action</span>
+                    <span className="absolute inset-0 block bg-white/20 translate-y-full transition-transform duration-300 group-hover:translate-y-0" />
+                </button>
+                <div className="h-12 w-12 rounded-full bg-recipe-accent-glow" />
+            </div>
+        );
+    }
+
+    if (recipe.id === 'avatar-medallion') {
+        return (
+            <div className="flex items-center gap-4">
+                <div className="relative flex h-12 w-12 items-center justify-center overflow-hidden rounded-full border border-white/10 bg-recipe-avatar-medallion text-sm font-semibold tracking-[0.08em] text-white/90">
+                    <span className="pointer-events-none absolute inset-0 bg-recipe-avatar-overlay" />
+                    <span className="relative z-10">U</span>
+                </div>
+                <span className="bg-recipe-monogram text-5xl leading-none">U</span>
+            </div>
+        );
+    }
+
+    return (
+        <div className="relative overflow-hidden rounded-[1.5rem] border border-white/10 bg-[#11141c] p-4">
+            <div className="absolute inset-0 bg-recipe-protocol-overlay" />
+            <div className="absolute left-[12%] top-[16%] h-[2px] w-[76%] bg-recipe-protocol-scan animate-[scanY_4.2s_ease-in-out_infinite]" />
+            <div className="absolute bottom-[18%] left-[10%] right-[10%] grid gap-2">
+                {[0, 1, 2].map((line) => (
+                    <div key={line} className="flex items-center gap-3 rounded-full border border-white/10 bg-recipe-protocol-strip px-4 py-2.5">
+                        <span className="h-2 w-2 rounded-full bg-accent/80" />
+                        <span className="h-px flex-1 bg-white/15" />
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+}
+
+function BackgroundRecipeSection() {
+    const [activeRecipeId, setActiveRecipeId] = useState(backgroundRecipes[0].id);
+    const [activeTab, setActiveTab] = useState('usage');
+    const cardRefs = useRef({});
+    const activeRecipe = backgroundRecipes.find((recipe) => recipe.id === activeRecipeId) ?? backgroundRecipes[0];
+    const activeIndex = backgroundRecipes.findIndex((recipe) => recipe.id === activeRecipe.id);
+    const tabs = [
+        { id: 'usage', label: 'Usage' },
+        { id: 'tokens', label: 'Tokens' },
+        { id: 'raw-css', label: 'Raw CSS' },
+        { id: 'production-code', label: 'Production code' }
+    ];
+
+    function selectRecipe(recipeId) {
+        setActiveRecipeId(recipeId);
+        const node = cardRefs.current[recipeId];
+        if (node) {
+            node.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+        }
+    }
+
+    function stepRecipe(direction) {
+        const nextIndex = Math.min(
+            Math.max(activeIndex + direction, 0),
+            backgroundRecipes.length - 1
+        );
+        selectRecipe(backgroundRecipes[nextIndex].id);
+    }
+
+    let detailPanel = <UsagePanel usage={activeRecipe.usage} notes={activeRecipe.notes} />;
+    if (activeTab === 'tokens') {
+        detailPanel = <SpecPanel groups={activeRecipe.tokens} />;
+    } else if (activeTab === 'raw-css') {
+        detailPanel = <CodePanel code={activeRecipe.rawCss} title="Raw CSS" />;
+    } else if (activeTab === 'production-code') {
+        detailPanel = <CodePanel code={activeRecipe.productionCode} title="Production code" />;
+    }
+
+    return (
+        <section id="background-recipes" className="scroll-mt-24 border-b border-white/8 pb-12">
+            <div className="mb-6 flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+                <div>
+                    <h2 className="text-2xl font-semibold tracking-tight text-white">Background Recipes</h2>
+                    <p className="mt-2 max-w-3xl text-sm leading-7 text-white/62">
+                        Reusable decorative surface recipes extracted from the live site so a developer can copy the actual visual language into another environment.
+                    </p>
+                </div>
+                <CopyValueButton
+                    value={activeTab === 'raw-css' ? activeRecipe.rawCss : activeRecipe.productionCode}
+                    label={`${activeRecipe.title} ${activeTab === 'raw-css' ? 'raw css' : 'production code'}`}
+                />
+            </div>
+
+            <div className="space-y-5">
+                <div className="flex items-center justify-between gap-4">
+                    <div>
+                        <div className="text-sm font-semibold text-white">{activeRecipe.title}</div>
+                        <div className="mt-1 text-sm text-white/52">
+                            {activeIndex + 1} of {backgroundRecipes.length} recipes
+                        </div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                        <button
+                            type="button"
+                            onClick={() => stepRecipe(-1)}
+                            disabled={activeIndex === 0}
+                            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/[0.03] text-white/72 transition-colors hover:bg-white/[0.08] hover:text-white disabled:cursor-not-allowed disabled:opacity-35"
+                            aria-label="Previous background recipe"
+                        >
+                            <ChevronLeft size={16} />
+                        </button>
+                        <button
+                            type="button"
+                            onClick={() => stepRecipe(1)}
+                            disabled={activeIndex === backgroundRecipes.length - 1}
+                            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/[0.03] text-white/72 transition-colors hover:bg-white/[0.08] hover:text-white disabled:cursor-not-allowed disabled:opacity-35"
+                            aria-label="Next background recipe"
+                        >
+                            <ChevronRight size={16} />
+                        </button>
+                    </div>
+                </div>
+
+                <div className="overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] p-4 shadow-[0_18px_45px_rgba(0,0,0,0.2)]">
+                    <div className="-mx-1 flex snap-x snap-mandatory gap-4 overflow-x-auto px-1 pb-1">
+                    {backgroundRecipes.map((recipe) => {
+                        const isActive = recipe.id === activeRecipeId;
+                        return (
+                            <button
+                                key={recipe.id}
+                                type="button"
+                                ref={(node) => {
+                                    if (node) {
+                                        cardRefs.current[recipe.id] = node;
+                                    }
+                                }}
+                                onClick={() => selectRecipe(recipe.id)}
+                                className={`flex h-[28rem] w-[22rem] max-w-[85vw] flex-none snap-center flex-col overflow-hidden rounded-2xl border text-left shadow-[0_18px_45px_rgba(0,0,0,0.2)] transition-colors ${
+                                    isActive
+                                        ? 'border-white/28 bg-white/[0.06]'
+                                        : 'border-white/10 bg-white/[0.03] hover:border-white/18 hover:bg-white/[0.04]'
+                                }`}
+                            >
+                                <div className="flex min-h-[6.75rem] items-start border-b border-white/10 px-4 py-3">
+                                    <div className="flex w-full items-start justify-between gap-3">
+                                        <div>
+                                            <div className="text-sm font-semibold text-white">{recipe.title}</div>
+                                            <div className="mt-1 text-xs text-white/52">{recipe.description}</div>
+                                        </div>
+                                        <StatusChip status={recipe.status} />
+                                    </div>
+                                </div>
+                                <div className="flex flex-1 flex-col p-4">
+                                    <div className="flex min-h-0 flex-1 items-center justify-center">
+                                        <div className="w-full">
+                                            <BackgroundRecipePreview recipe={recipe} />
+                                        </div>
+                                    </div>
+                                    <div className="mt-4 border-t border-white/8 pt-4">
+                                        <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-white/42">Used in</div>
+                                        <div className="mt-2 text-sm leading-6 text-white/62">{recipe.usedIn.join(' · ')}</div>
+                                    </div>
+                                </div>
+                            </button>
+                        );
+                    })}
+                </div>
+                </div>
+
+                <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-3 shadow-[0_18px_45px_rgba(0,0,0,0.2)] md:p-4">
+                    <div className="flex flex-wrap gap-2">
+                        {tabs.map((tab) => {
+                            const isActive = activeTab === tab.id;
+                            return (
+                                <button
+                                    key={tab.id}
+                                    type="button"
+                                    onClick={() => setActiveTab(tab.id)}
+                                    className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors ${
+                                        isActive
+                                            ? 'bg-white text-black'
+                                            : 'text-white/58 hover:bg-white/[0.08] hover:text-white'
+                                    }`}
+                                >
+                                    {tab.label}
+                                </button>
+                            );
+                        })}
+                    </div>
+                </div>
+
+                <div className="space-y-3">
+                    <div className="mb-4">
+                        <h3 className="text-sm font-semibold text-white">{activeRecipe.title}</h3>
+                        <p className="mt-2 text-sm leading-7 text-white/62">
+                            Used in: {activeRecipe.usedIn.join(' · ')}
+                        </p>
+                    </div>
+                    {detailPanel}
+                </div>
+            </div>
+        </section>
     );
 }
 
@@ -484,6 +1166,25 @@ function FoundationsPreview() {
                                 <div className={`h-10 rounded-lg ${swatch}`} />
                                 <div className="mt-3 text-sm font-semibold text-white">{label}</div>
                                 <div className="mt-1 text-sm text-white/58">{value}</div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                <div>
+                    <h3 className="text-sm font-semibold text-white">Decorative surface tokens</h3>
+                    <div className="mt-4 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+                        {[
+                            ['Accent red glow', 'blurred radial glow used behind cards and CTA surfaces', 'bg-recipe-accent-glow'],
+                            ['White edge seam', 'top highlight line used on premium surface shells', 'bg-recipe-top-seam'],
+                            ['Dark glass base', 'auction / CTA shell gradient base', 'bg-recipe-auction-surface'],
+                            ['Frosted fill', 'testimonial / sold-state translucent card base', 'bg-recipe-testimonial-surface'],
+                            ['Soft radial highlight', 'red radial overlay used to bias attention', 'bg-recipe-auction-overlay']
+                        ].map(([label, value, swatch]) => (
+                            <div key={label} className="rounded-xl border border-white/10 bg-white/[0.04] p-4">
+                                <div className={`h-10 rounded-lg ${swatch}`} />
+                                <div className="mt-3 text-sm font-semibold text-white">{label}</div>
+                                <div className="mt-1 text-sm leading-6 text-white/58">{value}</div>
                             </div>
                         ))}
                     </div>
@@ -1302,10 +2003,16 @@ export default function StyleKit() {
                                     {
                                         title: 'Design tokens',
                                         rows: foundationRows
+                                    },
+                                    {
+                                        title: 'Decorative surface tokens',
+                                        rows: visualTokenRows
                                     }
                                 ]}
                                 code={sectionClasses.foundations}
                             />
+
+                            <BackgroundRecipeSection />
 
                             <Section
                                 id="actions"
